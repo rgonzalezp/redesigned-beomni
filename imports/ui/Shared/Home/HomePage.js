@@ -132,7 +132,7 @@ class HomePage extends Component {
              
             <div className ={classes.desktopContent}>
               <Avatar alt="Rental Storage Lgoo" src="/img/biglogo.png" className={classes.avatar} />
-              <Typography variant="title" align="center" color="textPrimary" paragraph>
+              <Typography variant="title" align="center" style={{color:"#fff"}} paragraph>
                   Having trouble finding that hiking set to go on adventures? 
                   Maybe you want to play Monopoly for a night with some friends without buying the whole game?
                   Do you want to make some extra cash with your unused cool items?
@@ -143,7 +143,7 @@ class HomePage extends Component {
               <div className={classes.heroButtons}>
                 <Grid container spacing={16} justify="center">
                   <Grid item>
-                    <Typography variant="title" align="center" color="textPrimary" paragraph>
+                    <Typography variant="title" align="center" style={{color:"#fff"}} paragraph>
                   First time around?
                     </Typography>
                   </Grid>
