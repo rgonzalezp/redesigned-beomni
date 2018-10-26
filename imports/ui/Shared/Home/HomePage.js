@@ -83,7 +83,13 @@ const styles = thistheme => ({
   },
   heroContent: {
     maxWidth: 580,
-    margin: '0 auto',
+    [theme.breakpoints.down('sm')]: {
+      margin:'0 auto',
+    },
+    marginTop: '0',
+    marginBottom: '0',
+    marginLeft: 200,
+    marginRight: 'auto',
     padding: `${thistheme.spacing.unit * 8}px 0 ${thistheme.spacing.unit * 6}px`,
   },
   heroButtons: {
@@ -114,23 +120,25 @@ class HomePage extends Component {
       <MuiThemeProvider theme={theme}>
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+            <Typography component="display2" variant="h2" align="center" color="textPrimary" gutterBottom>
                   This should be a logo
             </Typography>
             <div className ={classes.desktopContent}>
-              <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              <Typography component="display4" variant="h2" align="center" color="textPrimary" gutterBottom>
                   Omni-be
               </Typography>
-              <Typography variant="h6" align="center" color="textSecondary" paragraph>
+              <Typography variant="title" align="center" color="textSecondary" paragraph>
                   Having trouble finding that hiking set to go on adventures? 
                   Maybe you want to play Monopoly for a night with some friends without buying the whole game?
                   Do you want to make some extra cash with your unused cool items?
+                  <br/>
+                  <br/>
                   Look no further, Omni-be connects people with rental needs
               </Typography>
               <div className={classes.heroButtons}>
                 <Grid container spacing={16} justify="center">
                   <Grid item>
-                    <Typography variant="h6" align="center" color="textSecondary" paragraph>
+                    <Typography variant="title" align="center" color="textSecondary" paragraph>
                   New to the tool?
                     </Typography>
                   </Grid>
@@ -143,10 +151,10 @@ class HomePage extends Component {
               </div>
             </div>
             <Paper className={classes.paper}>
-              <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              <Typography component="display4" variant="h2" align="center" color="textPrimary" gutterBottom>
                   Omni-be
               </Typography>
-              <Typography variant="h6" align="center" color="textSecondary" paragraph>
+              <Typography variant="title" align="center" color="textSecondary" paragraph>
                   Having trouble finding that hiking set to go on adventures? 
                   Maybe you want to play Monopoly for a night with some friends without buying the whole game?
                   Do you want to make some extra cash with your unused cool items?
@@ -155,7 +163,7 @@ class HomePage extends Component {
               <div className={classes.heroButtons}>
                 <Grid container spacing={16} justify="center">
                   <Grid item>
-                    <Typography variant="h6" align="center" color="textSecondary" paragraph>
+                    <Typography variant="title" align="center" color="textSecondary" paragraph>
                   New to the tool?
                     </Typography>
                   </Grid>
