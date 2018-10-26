@@ -71,6 +71,10 @@ const styles = theme => ({
   },
   avatar: {
     marginRight:15,
+    display:'block',
+    [theme.breakpoints.down('sm')]: {
+      display:'none',
+    }
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
