@@ -16,6 +16,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import AccountsUIWrapper from '../../AccountsUIWrapper.js';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
 
 const theme = createMuiTheme({
   palette: {
@@ -67,6 +68,9 @@ const styles = theme => ({
       marginLeft: theme.spacing.unit * 5,
       width: '30%',
     },
+  },
+  avatar: {
+    marginRight:15,
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
@@ -173,9 +177,9 @@ class PrimarySearchBar extends React.Component {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
             </IconButton>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              Omni-be
-            </Typography>
+            
+               <Avatar alt="Rental Storage Lgoo" src="/img/minilogo.png" className={classes.avatar} />
+            
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />

@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -59,6 +61,13 @@ const styles = thistheme => ({
       marginTop: 50,
       marginBottom: 100,
     }
+  },
+  avatar: {
+    height:150,
+    width:150,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom:20
   },
   layout: {
     width: 'auto',
@@ -120,13 +129,8 @@ class HomePage extends Component {
       <MuiThemeProvider theme={theme}>
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
-            <Typography component="display2" variant="h2" align="center" color="textPrimary" gutterBottom>
-                  This should be a logo
-            </Typography>
+             <Avatar alt="Rental Storage Lgoo" src="/img/biglogo.png" className={classes.avatar} />
             <div className ={classes.desktopContent}>
-              <Typography component="display4" variant="h2" align="center" color="textPrimary" gutterBottom>
-                  Omni-be
-              </Typography>
               <Typography variant="title" align="center" color="textSecondary" paragraph>
                   Having trouble finding that hiking set to go on adventures? 
                   Maybe you want to play Monopoly for a night with some friends without buying the whole game?
