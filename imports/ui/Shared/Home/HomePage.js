@@ -132,23 +132,23 @@ class HomePage extends Component {
              
             <div className ={classes.desktopContent}>
               <Avatar alt="Rental Storage Lgoo" src="/img/biglogo.png" className={classes.avatar} />
-              <Typography variant="title" align="center" color="textSecondary" paragraph>
+              <Typography variant="title" align="center" color="textPrimary" paragraph>
                   Having trouble finding that hiking set to go on adventures? 
                   Maybe you want to play Monopoly for a night with some friends without buying the whole game?
                   Do you want to make some extra cash with your unused cool items?
                   <br/>
                   <br/>
-                  Look no further, Omni-be connects people with rental needs
+                  Look no further, RS connects people with rental needs
               </Typography>
               <div className={classes.heroButtons}>
                 <Grid container spacing={16} justify="center">
                   <Grid item>
-                    <Typography variant="title" align="center" color="textSecondary" paragraph>
+                    <Typography variant="title" align="center" color="textPrimary" paragraph>
                   First time around?
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Button variant="contained" color="primary">
+                    <Button name="register button" variant="contained" color="primary">
                         Register now!
                     </Button>
                   </Grid>
@@ -158,7 +158,7 @@ class HomePage extends Component {
 
             <Paper className={classes.paper}>
               <Avatar alt="Rental Storage Lgoo" src="/img/biglogo.png" className={classes.avatar} />
-              <Typography variant="title" align="center" color="textSecondary" paragraph>
+              <Typography variant="title" align="center" color="textPrimary" paragraph>
                   Having trouble finding that hiking set to go on adventures? 
                   Maybe you want to play Monopoly for a night with some friends without buying the whole game?
                   Do you want to make some extra cash with your unused cool items?
@@ -167,12 +167,12 @@ class HomePage extends Component {
               <div className={classes.heroButtons}>
                 <Grid container spacing={16} justify="center">
                   <Grid item>
-                    <Typography variant="title" align="center" color="textSecondary" paragraph>
+                    <Typography variant="title" align="center" color="textPrimary" paragraph>
                   First time around?
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Button variant="contained" color="primary">
+                    <Button name="register button" variant="contained" color="primary">
                         Register now!
                     </Button>
                   </Grid>
@@ -190,11 +190,11 @@ class HomePage extends Component {
         <Grid container spacing={32} justify="space-evenly">
           {footers.map(footer => (
             <Grid item xs key={footer.title}>
-              <Typography variant="h6" color="textPrimary" gutterBottom>
+              <Typography variant="title" color="textPrimary" gutterBottom>
                 {footer.title}
               </Typography>
               {footer.description.map(item => (
-                <Typography key={item} variant="subtitle1" color="textSecondary">
+                <Typography key={item} variant="subtitle" color="textPrimary">
                   {item}
                 </Typography>
               ))}

@@ -17,6 +17,12 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import AccountsUIWrapper from '../../AccountsUIWrapper.js';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import './PrimarySearchBar.css';
 
 const theme = createMuiTheme({
   palette: {
@@ -27,7 +33,7 @@ const theme = createMuiTheme({
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     secondary: {
-      light: "#FFFEFA",
+      light: '#F6F2E3',
       main: "#FFFEFA",
       // dark: will be calculated from palette.secondary.main,
       contrastText: '#ffcc00',
@@ -37,7 +43,7 @@ const theme = createMuiTheme({
 });
 
 
-const styles = theme => ({
+const styles = thistheme => ({
   root: {
     width: '100%',
   },
@@ -50,68 +56,71 @@ const styles = theme => ({
   },
   title: {
     display: 'none',
-    [theme.breakpoints.up('sm')]: {
+    [thistheme.breakpoints.up('sm')]: {
       display: 'block',
     },
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    borderRadius: thistheme.shape.borderRadius,
+    backgroundColor: fade(thistheme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(thistheme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing.unit * 2,
+    marginRight: thistheme.spacing.unit * 2,
     marginLeft: 0,
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit * 5,
+    [thistheme.breakpoints.up('sm')]: {
+      marginLeft: 10,
       width: '30%',
     },
   },
   avatar: {
     marginRight:15,
     display:'block',
-    [theme.breakpoints.down('sm')]: {
+    [thistheme.breakpoints.down('sm')]: {
       display:'none',
     }
   },
   searchIcon: {
-    width: theme.spacing.unit * 9,
+    width: thistheme.spacing.unit * 9,
     height: '100%',
-    position: 'absolute',
+    color: thistheme.palette.common.white,
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   inputRoot: {
-    color: 'inherit',
+    color: thistheme.palette.secondary.contrastText,
+    
     width: '100%',
   },
   inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '100%',
+    paddingTop: thistheme.spacing.unit,
+    paddingRight: thistheme.spacing.unit,
+    paddingBottom: thistheme.spacing.unit,
+    paddingLeft: thistheme.spacing.unit * 10,
+    transition: thistheme.transitions.create('width'),
+    color: thistheme.palette.common.white,
+    width: 'auto',
+    [thistheme.breakpoints.up('md')]: {
+      width: 'auto',
     },
   },
   sectionDesktop: {
     display: 'none',
-    [theme.breakpoints.up('md')]: {
+    [thistheme.breakpoints.up('md')]: {
       display: 'flex',
     },
   },
   sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
+    [thistheme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
+  
 });
 
 class PrimarySearchBar extends React.Component {
@@ -165,7 +174,7 @@ class PrimarySearchBar extends React.Component {
         onClose={this.handleMobileMenuClose}
       > 
         <MenuItem onClick={this.handleProfileMenuOpen}>
-          <IconButton color="inherit">
+          <IconButton aria-label="profile menu" color="inherit">
             <AccountCircle />
           </IconButton>
           <p>Profile</p>
@@ -185,16 +194,25 @@ class PrimarySearchBar extends React.Component {
                <Avatar alt="Rental Storage Lgoo" src="/img/minilogo.png" className={classes.avatar} />
             
             <div className={classes.search}>
-              <div className={classes.searchIcon}>
+              
+            <FormControl className={classes.inputRoot}>
+                <InputLabel id="InputLabel" htmlFor="input-with-icon-adornment"></InputLabel>
+                <TextField
+        floatingLabelStyle={{color: '#fff' }}
+        id="standard-with-placeholder"
+        label="Search for your items"
+        InputProps={{
+          startAdornment: (
+            <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputBase
-                placeholder="Find your next rental!"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
+          ),
+        }}
+      />
+
+             
+      </FormControl>
+              
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
@@ -202,6 +220,7 @@ class PrimarySearchBar extends React.Component {
                 <AccountsUIWrapper/>
               
               <IconButton
+                aria-label="profile menu" 
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
@@ -211,8 +230,9 @@ class PrimarySearchBar extends React.Component {
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
+              <IconButton aria-label="profile menu" aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
                 <MoreIcon />
+              
               </IconButton>
             </div>
           </Toolbar>

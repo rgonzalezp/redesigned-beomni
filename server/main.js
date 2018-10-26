@@ -7,6 +7,11 @@ function insertLink(title, url) {
 
 Meteor.startup(() => {
   // If the Links collection is empty, add some data.
+  WebApp.addHtmlAttributeHook(function() {
+        return {
+            "lang": "en"
+        }
+    })
   if (Links.find().count() === 0) {
     insertLink(
       'Do the Tutorial',
