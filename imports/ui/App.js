@@ -4,12 +4,46 @@ import RegisterPage from './Shared/Register/RegisterPage.js';
 import LoginPage from './Shared/Login/LoginPage.js';
 import { Route,Switch, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import './App.css';
 
+const themeColor = createMuiTheme({
+  palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#4851A9',
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      light: '#F6F2E3',
+      main: '#FFFEFA',
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: '#ffcc00',
+    },
+    // error: will use the default color
+  },
+});
 
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { loaded: null };
+
+  }
+
+
+  componentDidMount() {
+
+    setTimeout(() => this.setState({ loaded: true }), 1300);
+  }
   render() {
-    return (
+
+    if (this.state.loaded === null) return <MuiThemeProvider theme={themeColor}><CircularProgress className="centered" size={80} color="primary"></CircularProgress></MuiThemeProvider>;
+    return this.state.loaded ? (
       <div>
         <BrowserRouter>
           <Switch>
@@ -19,7 +53,7 @@ class App extends Component {
           </Switch>
         </BrowserRouter>
       </div>
-    );
+    ): <div></div>;
   }
 }
 
