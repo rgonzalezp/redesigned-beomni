@@ -126,10 +126,27 @@ const styles = thistheme => ({
 });
 
 class PrimarySearchBar extends React.Component {
-  state = {
+  constructor(props) {
+    super(props);
+    this.state = {
+    token: localStorage.getItem('sessionToken'),
+    name: this.props.firstName,
+    };
+
+  }
+   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
-  };
+  }
+
+  logOut = () => {
+    localStorage.removeItem('sessionToken');
+    this.setState({
+      token: null,
+      name: null
+    });
+    
+  }
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -218,12 +235,16 @@ class PrimarySearchBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <Button name="register button" variant="contained" color="primary" href="/register">
+            {this.state.token?<Button onClick={this.logOut.bind(this)}name="register button" variant="contained" color="primary" href="/register">
+                        Logout!
+                    </Button>:<div><Button name="register button" variant="contained" color="primary" href="/register">
                         Register!
                     </Button>
               <Button name="login button" variant="contained" color="primary" href="/login">
                         Log in!
-              </Button>
+              </Button></div>}
+            
+              
               
               <IconButton
                 aria-label="profile menu" 

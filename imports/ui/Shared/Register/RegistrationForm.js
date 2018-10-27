@@ -11,6 +11,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Navigation from '../Home/PrimarySearchBar.js';
 import './RegistrationForm.css';
+import { Meteor } from 'meteor/meteor';
+import { withRouter } from 'react-router-dom';
 
 
 const themeColor = createMuiTheme({
@@ -43,8 +45,10 @@ const themeColor = createMuiTheme({
         password: '',
         sessionToken: null
       };
-      this.checkAuthentication = this.checkAuthentication.bind(this);
-      this.checkAuthentication();
+
+      if (localStorage.getItem('sessionToken')) {
+      this.props.history.push('/');
+}
 
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -74,9 +78,41 @@ const themeColor = createMuiTheme({
       this.setState({ password: e.target.value });
     }
 
-    handleSubmit(e) {
-      //call meteor
-    }
+    handleSubmit() {
+    let este = this;
+    let email = this.state.email;
+    let password = this.state.password;
+    let firstName = this.state.firstName;
+    let lastName = this.state.lastName;
+
+    Meteor.call(
+      'users.addUser',
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password
+      },
+      (err, res) => {
+        if (err) {
+          alert(err.error);
+        } else if (res) {
+          Meteor.call(
+            'users.validateUser',
+            { email, password },
+            (err, res) => {
+              if (err) {
+                alert(err.error);
+              } else {
+                localStorage.setItem('sessionToken', res);
+                este.props.history.push('/');
+              }
+            }
+          );
+        }
+      }
+    );
+  }
 
     render() {
 
@@ -140,11 +176,11 @@ const themeColor = createMuiTheme({
               />
             </FormGroup>
           </Col>
-          <Button className="registration-buttons" variant="contained" color="primary" size="large">Let's go</Button>
+          <Button onClick={this.handleSubmit.bind(this)} className="registration-buttons" variant="contained" color="primary" size="large">Let's go</Button>
         </Form>
       </Container>
       </div>
       );
     }
   }
-export default RegistrationForm;
+export default withRouter(RegistrationForm);

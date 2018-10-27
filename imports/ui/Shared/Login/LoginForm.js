@@ -8,9 +8,11 @@ import {Container,
   FormText
 } from 'reactstrap';
 import Button from '@material-ui/core/Button';
-
+import  { Meteor }  from 'meteor/meteor';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './LoginForm.css';
+import { withRouter } from 'react-router-dom';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -40,13 +42,34 @@ class LoginForm extends React.Component {
       username: '',
       password: ''
     };
+
+    if (localStorage.getItem('sessionToken')) {
+      this.props.history.push('/');
+    }
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
-  handleSubmit(e) {
-   //call meteor
+  handleSubmit() {
+  //call meteor
+  let este = this;
+    Meteor.call(
+      'users.validateUser',
+      {
+        email: this.state.username,
+        password: this.state.password
+      },
+      (err, res) => {
+        if (err) {
+          alert(err.error);
+        } else {
+          localStorage.setItem('sessionToken', res);
+          este.props.history.push('/');
+        }
+      }
+    );
   }
 
   handleUsernameChange(e) {
@@ -90,10 +113,10 @@ class LoginForm extends React.Component {
               />
             </FormGroup>
           </Col>
-          <Button className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
+          <Button onClick={this.handleSubmit.bind(this)} className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
         </Form>
       </Container>
     );
   }
 }
-export default LoginForm;
+export default withRouter(LoginForm);
