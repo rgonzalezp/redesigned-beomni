@@ -3,10 +3,10 @@ import {Container,
   Col, 
   Form,
   FormGroup, 
-  Label,
-  Button, 
+  Label, 
   Input
 } from "reactstrap";
+import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Navigation from '../Home/PrimarySearchBar.js';
@@ -86,7 +86,7 @@ const themeColor = createMuiTheme({
         <Navigation/>
         <Container className="App">
         
-        <h2>Register</h2>
+        <h1>Register</h1>
         <Form className="form" onSubmit={this.handleSubmit}>
           <Col>
             <FormGroup>
@@ -140,7 +140,7 @@ const themeColor = createMuiTheme({
               />
             </FormGroup>
           </Col>
-          <Button className="registration-buttons" block>Let's go</Button>
+          <Button className="registration-buttons" variant="contained" color="primary" size="large">Let's go</Button>
         </Form>
       </Container>
       </div>

@@ -5,9 +5,9 @@ import {Container,
   FormGroup, 
   Label, 
   Input,
-  Button,
   FormText
 } from 'reactstrap';
+import Button from '@material-ui/core/Button';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './LoginForm.css';
@@ -60,8 +60,8 @@ class LoginForm extends React.Component {
   render() {
 
     return (
-      <Container className="App">
-        <h2>Sign In</h2>
+      <Container className="App contained">
+        <h1>Sign In</h1>
         <Form className="form" onSubmit={this.handleSubmit}>
           <Col>
             <FormGroup>
@@ -90,7 +90,7 @@ class LoginForm extends React.Component {
               />
             </FormGroup>
           </Col>
-          <Button className="login-buttons"  block>Let's go</Button>
+          <Button className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
         </Form>
       </Container>
     );
