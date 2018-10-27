@@ -22,6 +22,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
 import './PrimarySearchBar.css';
 
 const theme = createMuiTheme({
@@ -73,6 +74,7 @@ const styles = thistheme => ({
     [thistheme.breakpoints.up('sm')]: {
       marginLeft: 10,
       width: '30%',
+      padding: 2,
     },
   },
   avatar: {
@@ -198,14 +200,14 @@ class PrimarySearchBar extends React.Component {
             <FormControl className={classes.inputRoot}>
                 <InputLabel id="InputLabel" htmlFor="input-with-icon-adornment"></InputLabel>
                 <TextField
-        floatingLabelStyle={{color: '#fff' }}
-        id="standard-with-placeholder"
-        label="Search for your items"
-        InputProps={{
-          startAdornment: (
-            <div className={classes.searchIcon}>
+                  
+                  id="standard-with-placeholder"
+                  label="Search for your items"
+                  InputProps={{
+                  startAdornment: (
+                <div className={classes.searchIcon}>
                 <SearchIcon />
-              </div>
+            </div>
           ),
         }}
       />
@@ -216,8 +218,12 @@ class PrimarySearchBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              
-                <AccountsUIWrapper/>
+              <Button name="register button" variant="contained" color="primary" href="/register">
+                        Register!
+                    </Button>
+              <Button name="login button" variant="contained" color="primary" href="/login">
+                        Log in!
+              </Button>
               
               <IconButton
                 aria-label="profile menu" 

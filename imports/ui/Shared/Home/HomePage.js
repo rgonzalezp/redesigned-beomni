@@ -148,7 +148,7 @@ class HomePage extends Component {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Button name="register button" variant="contained" color="primary">
+                    <Button name="register button" variant="contained" color="primary" href="/register">
                         Register now!
                     </Button>
                   </Grid>
