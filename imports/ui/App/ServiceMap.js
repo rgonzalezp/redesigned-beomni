@@ -1,4 +1,6 @@
+import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import key from './shhkey.js';
  
 export class ServiceMap extends Component {
   render() {
@@ -6,12 +8,12 @@ export class ServiceMap extends Component {
       <Map google={this.props.google} zoom={14}>
  
         <Marker onClick={this.onMarkerClick}
-                name={'Current location'} />
+          name={'Current location'} />
  
         <InfoWindow onClose={this.onInfoWindowClose}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
-            </div>
+          <div>
+            <h1>{this.state.selectedPlace.name}</h1>
+          </div>
         </InfoWindow>
       </Map>
     );
@@ -19,5 +21,5 @@ export class ServiceMap extends Component {
 }
  
 export default GoogleApiWrapper({
-  apiKey: (YOUR_GOOGLE_API_KEY_GOES_HERE)
+  apiKey: (key)
 })(ServiceMap);
