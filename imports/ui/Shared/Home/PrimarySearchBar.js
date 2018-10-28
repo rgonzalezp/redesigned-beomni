@@ -23,6 +23,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 import './PrimarySearchBar.css';
 
 const theme = createMuiTheme({
@@ -145,7 +146,7 @@ class PrimarySearchBar extends React.Component {
       token: null,
       name: null
     });
-    
+    this.handleMenuClose();
   }
 
   handleProfileMenuOpen = event => {
@@ -192,12 +193,27 @@ class PrimarySearchBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMobileMenuClose}
       > 
-        <MenuItem onClick={this.handleProfileMenuOpen}>
-          <IconButton aria-label="profile menu" color="inherit">
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
+      {this.state.token?
+        <div>
+          <Link to="/profile" >
+          <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+          </Link>
+          <Link to="/accountSettings" >
+          <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+          </Link>
+          <Link to="/" >
+          <MenuItem onClick={this.logOut.bind(this)} >Logout</MenuItem>
+          </Link>
+        </div>:
+        <div>
+          <Link to="/register" >
+          <MenuItem onClick={this.handleMenuClose}>Register</MenuItem>
+          </Link>
+          <Link to="/login" >
+           <MenuItem onClick={this.handleMenuClose}>Log In</MenuItem>
+          </Link>
+        </div>}
+       
       </Menu>
     );
 
@@ -206,9 +222,6 @@ class PrimarySearchBar extends React.Component {
       <MuiThemeProvider theme={theme}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
             
                <Avatar alt="Rental Storage Lgoo" src="/img/minilogo.png" className={classes.avatar} />
             
@@ -235,7 +248,7 @@ class PrimarySearchBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-            {this.state.token?<Button onClick={this.logOut.bind(this)}name="register button" variant="contained" color="primary" href="/register">
+            {this.state.token?<Button onClick={this.logOut.bind(this)}name="register button" variant="contained" color="primary" href="/">
                         Logout!
                     </Button>:<div><Button name="register button" variant="contained" color="primary" href="/register">
                         Register!
@@ -250,7 +263,7 @@ class PrimarySearchBar extends React.Component {
                 aria-label="profile menu" 
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
+                onClick={this.handleMobileMenuOpen}
                 color="inherit"
               >
                 <AccountCircle />
