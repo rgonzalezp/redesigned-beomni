@@ -94,18 +94,18 @@ class Account extends Component {
     renderEdit(){
         return ( <InputGroup>
             <Row>
-              <InputGroupAddon addonType="prepend">Username</InputGroupAddon>
+              <InputGroupAddon addonType="prepend"><Button color="info" >Username:</Button></InputGroupAddon>
               <Input value={this.state.username?this.state.username:'username'}readOnly/>
             </Row>
             <Row>
-              <InputGroupAddon addonType="prepend"> First Name
+              <InputGroupAddon addonType="prepend">  <Button color="info" > First Name:</Button> 
               </InputGroupAddon>
-              <Input onChange={this.handleInputName} placeholder="First Name!" />
+              <Input onChange={this.handleInputName} placeholder="First Name!" valid />
               </Row>
               <Row>
-              <InputGroupAddon addonType="prepend"> Last Name
+              <InputGroupAddon addonType="prepend"> <Button color="info" > Last Name:</Button> 
               </InputGroupAddon>
-              <Input onChange={this.handleInputLast} placeholder="Last Name!" />
+              <Input onChange={this.handleInputLast} placeholder="Last Name!" valid />
               </Row>
             </InputGroup>)
     }
@@ -113,16 +113,16 @@ class Account extends Component {
         console.log('NOEDIT: ', this)
         return ( <InputGroup>
             <Row>
-              <InputGroupAddon addonType="prepend">Username --    e-mail: </InputGroupAddon>
+              <InputGroupAddon addonType="prepend"  block> <Button color="info" > Username:</Button> </InputGroupAddon>
               <Input value={this.state.username?this.state.username:'username'} readOnly />
             </Row>
             <Row>
-              <InputGroupAddon addonType="prepend"> First Name: 
+              <InputGroupAddon addonType="prepend"> <Button color="info" >  First Name :</Button>
               </InputGroupAddon>
               <Input value={this.state.name?this.state.name:'First Name'} readOnly />
               </Row>
               <Row>
-              <InputGroupAddon addonType="prepend"> Last Name: 
+              <InputGroupAddon addonType="prepend"> <Button color="info" >  Last Name: :</Button>
               </InputGroupAddon>
               <Input value={this.state.last?this.state.last:'Last Name'}readOnly />
               </Row>
