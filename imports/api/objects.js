@@ -33,56 +33,37 @@ if (Meteor.isServer) {
 Meteor.methods({
 
   //fix methods to work with objects.
-  'objects.insert'(text,players,cartas) {
+  'objects.insert'(price,email,imageurl,title,description,alttext) {
 
-    check(text, String);
-    console.log('players: ',players)
-    // Make sure the user is logged in before inserting a task
+    check(email, String);
+    // Make sure the user is logged in before inserting an object
     if (! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    console.log('what is this.userId: ', this.userId)
+    console.log('what is this.userId: ', this.userId);
     
-    const game = Tasks.findOne({
-      owner: this.userId
-    });
-    console.log('Game?: ',game);
-    if(!game)
-    {
-
-      console.log('Do you enter??: ');
       
-      Tasks.insert({
-        text: text,
-        createdAt: new Date(),
-        players: players,
-        owner: this.userId,
-        username: Meteor.users.findOne(this.userId).username,
-        game_on: false,
-        player_1:{},
-        player_2:{},
-        player_3:{},
-        player_4:{},
-        player_1votes:0,
-        player_2votes:0,
-        player_3votes:0,
-        player_4votes:0,
-        cards:cartas,
-        currentWinner:{},
-        time:moment.duration( 3 , 'minutes' ),
+    Objects.insert({
+      price: price,
+      email: email,
+      imageurl: imageurl,
+      title: title,
+      description: description,
+      alttext: alttext,
+      rented: false,
   
-      });  
+    });  
 
-    }
+    
 
   },
   //object removal
   'objects.remove'(objectId,userId) {
 
-    check(taskId, String);
+    check(objectId, String);
 
-    const task = Tasks.findOne(taskId);
+    const task = Tasks.findOne(objectId);
 
     if (task.private && task.owner !== this.userId) {
 
@@ -93,12 +74,12 @@ Meteor.methods({
     }
  
 
-    Tasks.remove(taskId);
+    Objects.remove(objectId);
   },
 
-  'tasks.setChecked'(taskId, setChecked) {
+  'tasks.setChecked'(objectId, setChecked) {
 
-    const task = Tasks.findOne(taskId);
+    const task = Objects.findOne(objectId);
 
     if (task.private && task.owner !== this.userId) {
 
@@ -108,11 +89,11 @@ Meteor.methods({
 
     }
 
-    check(taskId, String);
+    check(objectId, String);
 
     check(setChecked, Boolean);
 
-    Tasks.update(taskId, { $set: { checked: setChecked } });
+    Objects.update(objectId, { $set: { checked: setChecked } });
   },
   
   
