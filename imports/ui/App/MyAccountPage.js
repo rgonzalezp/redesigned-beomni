@@ -135,7 +135,7 @@ class MyAccountPage extends Component {
                   aria-label="Input your product description"
                   name="description"
                   type="text"
-                  value={this.state.description}
+                  value={this.state.description }
                   onChange={this.handleChangeDescription.bind(this)}
                   ref='inputc'
                 />
@@ -180,15 +180,25 @@ class MyAccountPage extends Component {
             </Col>
             <Col xs="12" sm="5" >
               <Container className="App contained">
+              <Container className='conteRent'>
                 <RentalObject 
                   price={this.state.price} 
                   title={this.state.title} 
                   email={this.state.email} 
                   description={this.state.description} 
                   imageurl={this.state.imageurl}/>
+                </Container>
+                <Container className='conteService'>
                 <ServiceMap/>
+                </Container>
+           
               </Container>
             </Col>
+          </Row>
+          <Row>
+            <Container id='GoRentals'>
+
+            </Container>
           </Row>
         </Container>
        
