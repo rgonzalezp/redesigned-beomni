@@ -24,6 +24,7 @@ class MyAccountPage extends Component {
     this.state = {
       title: '',
       email: localStorage.getItem('correo'),
+      price:'',
       description: '',
       imageurl: '',
       alttext: '',
@@ -60,6 +61,14 @@ class MyAccountPage extends Component {
     this.setState({address: e.target.value});
   }
 
+  clearInput(){
+    this.setState({  title: '',
+    price:'',
+    description: '',
+    imageurl: '',
+    alttext: '',
+    address:''})
+  }
   handleSubmit(){
   	let este = this;
     Meteor.call(
@@ -76,7 +85,7 @@ class MyAccountPage extends Component {
       (err, res) => {
         if (err) 
           alert(err.error);
-       
+        this.clearInput();
         este.props.history.push('/myaccount');
         
       }
@@ -126,7 +135,7 @@ class MyAccountPage extends Component {
                   aria-label="Input your product description"
                   name="description"
                   type="text"
-                  value={this.state.password}
+                  value={this.state.description}
                   onChange={this.handleChangeDescription.bind(this)}
                   ref='inputc'
                 />
