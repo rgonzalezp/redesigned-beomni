@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import HomePage from './Shared/Home/HomePage.js';
 import RegisterPage from './Shared/Register/RegisterPage.js';
 import LoginPage from './Shared/Login/LoginPage.js';
+import MyAccountPage from './App/MyAccountPage.js';
 import { Route,Switch, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css';
+import Profile from './Shared/Profile/Profile.js';
+import Account from './Shared/Account/Account.js';
 
 const themeColor = createMuiTheme({
   palette: {
@@ -50,6 +53,9 @@ class App extends Component {
             <Route path="/" exact component={HomePage} />
             <Route path="/register" exact component={RegisterPage} />
             <Route path="/login" exact component={LoginPage} />
+            <Route path="/myaccount" exact component={MyAccountPage} />
+            <Route path="/profile" exact component={Profile}/>
+            <Route path="/accountSettings" exact component={Account}/>
           </Switch>
         </BrowserRouter>
       </div>
