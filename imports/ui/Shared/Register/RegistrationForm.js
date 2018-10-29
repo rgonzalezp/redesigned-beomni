@@ -91,7 +91,8 @@ const themeColor = createMuiTheme({
         firstName: firstName,
         lastName: lastName,
         email: email,
-        password: password
+        password: password,
+        avatar_url:''
       },
       (err, res) => {
         if (err) {

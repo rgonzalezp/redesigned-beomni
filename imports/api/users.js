@@ -17,7 +17,8 @@ Meteor.methods({
     firstName,
     lastName,
     email,
-    password
+    password,
+    avatar_url
   }) {
 
     try {
@@ -27,6 +28,7 @@ Meteor.methods({
         lastName: lastName,
         email: email,
         password: cryptr.encrypt(password),
+        avatar_url: avatar_url
       });
       console.log("added user", email);
       return true;
@@ -40,8 +42,15 @@ Meteor.methods({
       }
     }
 
+  },'users.updateAvatar'({
+  user, estado
+  }) {
+
+
+      Users.update(user, { $set: { avatar_url: estado } })
+    return true
   },
-  'users.findUser'({
+  'users.findUser'({  
     email
   }) {
     check(email, String);
@@ -50,10 +59,13 @@ Meteor.methods({
       email: email
     });
     return user;
-  },'users.find'() {
+  },'users.find'({email}) {
 
-    console.log(Meteor.user())
-    console.log('helos fresh')
+    const user = Users.findOne({
+      email: email
+    });
+    console.log('user_fdn: ',user, email)
+   return user
   },
   'users.validateUser'({
     email,
