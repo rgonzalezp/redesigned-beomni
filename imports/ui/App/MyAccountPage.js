@@ -63,6 +63,7 @@ class MyAccountPage extends Component {
             email={this.state.email} 
             description={this.state.description} 
             imageurl={this.state.imageurl}/>
+          <ServiceMap/>
         </div>
       </div>
     );
