@@ -42,18 +42,20 @@ Meteor.methods({
       }
     }
 
-  },'users.updateAvatar'({
+  },'users.updateUser'({
     firstName,
     lastName,
-    email
+    email,
+    url
   }) {
 
     console.log(firstName);
     console.log( lastName);
     console.log(email);
+    console.log(url)
 
 
-    Users.update( {'email': email }, { $set: { firstName: firstName, lastName: lastName } });
+    Users.update( {'email': email }, { $set: { firstName: firstName, lastName: lastName , avatar_url:url} });
     return true;
   },
   'users.findUser'({  

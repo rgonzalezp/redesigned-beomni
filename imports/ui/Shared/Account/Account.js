@@ -47,14 +47,17 @@ class Account extends Component {
         this.updateLastName = this.updateLastName.bind(this);
         this.handleInputUrl = this.handleInputUrl.bind(this);
         this.updateAvatar = this.updateAvatar.bind(this);
+        this.handleInputName = this.handleInputName.bind(this);
+        this.handleInputLast = this.handleInputLast.bind(this);
 
       }
     
 
       handleTriggerEdit = () => {
         
-
-              Meteor.call('users.updateAvatar',{firstName:this.state.name,lastName:this.state.last,email:this.state.username},function(err,res){
+            console.log('typeofurl: ',this.state.avatar_url)
+            console.log('nombre:', this.state)
+              Meteor.call('users.updateUser',{firstName:this.state.name,lastName:this.state.last,email:this.state.username,url:this.state.avatar_url},function(err,res){
                         if(err){
                             console.log(error.reason);
                             return;
@@ -72,10 +75,10 @@ class Account extends Component {
       };
 
       updateName(nom){
-        this.setState({name:nom.target.value})
+        this.setState({name:nom})
       }
       updateLastName(nom){
-        this.setState({last:nom.target.value})
+        this.setState({last:nom})
       }
 
       updateUsername(nom){
@@ -97,12 +100,12 @@ class Account extends Component {
             <Row>
               <InputGroupAddon addonType="prepend"> First Name
               </InputGroupAddon>
-              <Input onChange={this.updateName} placeholder="First Name!" />
+              <Input onChange={this.handleInputName} placeholder="First Name!" />
               </Row>
               <Row>
               <InputGroupAddon addonType="prepend"> Last Name
               </InputGroupAddon>
-              <Input onChange={this.updateLastName} placeholder="Last Name!" />
+              <Input onChange={this.handleInputLast} placeholder="Last Name!" />
               </Row>
             </InputGroup>)
     }
@@ -135,7 +138,9 @@ class Account extends Component {
         console.log('renderAvatarImage')
         console.log(this.state.avatar_url)
         let url_avatar = this.state.avatar_url
-        if(typeof(url_avatar)==='undefined'){
+        console.log(url_avatar)
+        if(url_avatar===''){
+            console.log('url_avatar: ', url_avatar)
             url_avatar = '/clear/fd.jpg'
         }
         return (
@@ -147,8 +152,16 @@ class Account extends Component {
         
     }
     handleInputUrl(ev){
-        console.log('handleinput: ',ev.target.value)
+        console.log('handleinputURL: ',ev.target.value)
         this.updateAvatar(ev.target.value)
+    }
+    handleInputName(ev){
+        console.log('handleinputName: ',ev.target.value)
+        this.updateName(ev.target.value)
+    }
+    handleInputLast(ev){
+        console.log('handleinputLast: ',ev.target.value)
+        this.updateLastName(ev.target.value)
     }
     uploadAvatarImage(){
             return ( 
@@ -214,9 +227,11 @@ class Account extends Component {
         );
     }
 
+ 
     componentDidMount(){
         const este = this
-        if(this.state.username===''){
+        console.log('compoenntDidmount')
+        if(this.state.name===''){
             this.props.user.then(function(result){
                 console.log('componendidmoiunt: ', this)
                 console.log(result)
@@ -234,7 +249,7 @@ class Account extends Component {
         }
 
     }
-    
+
 
     
 }
@@ -258,6 +273,7 @@ export default withTracker((props) => {
     
         const correo = localStorage.getItem('correo')
         console.log('withtracker')
+        console.log(props)
         console.log(correo)
      let user =   getUser(correo)
 
