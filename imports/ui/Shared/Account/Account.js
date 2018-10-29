@@ -94,7 +94,7 @@ class Account extends Component {
     renderEdit(){
         return ( <InputGroup>
             <Row>
-              <InputGroupAddon addonType="prepend">Username/e-mail</InputGroupAddon>
+              <InputGroupAddon addonType="prepend">Username</InputGroupAddon>
               <Input value={this.state.username?this.state.username:'username'}readOnly/>
             </Row>
             <Row>
@@ -165,14 +165,17 @@ class Account extends Component {
     }
     uploadAvatarImage(){
             return ( 
+                <Row>
+
             <Form>
             <FormGroup row>
-            <Label className="text-primary" for="exampleText" sm={2}></Label>
+            <Label className="text-primary" for="exampleText" sm={2}>IMG URL:</Label>
             <Col sm={10}>
             <Input type="textarea" name="text" id="exampleText" onChange={this.handleInputUrl}/>
             </Col>
             </FormGroup>
             </Form>
+            </Row>
             )
         
     }
@@ -221,8 +224,6 @@ class Account extends Component {
                 {console.log(localStorage.getItem('correo'))}
                 {this.renderProfile()}
                 {this.renderEditButton()}
-                <h3>Hello</h3>
-                {console.log('lassss: ', this)}
             </div>
         );
     }
