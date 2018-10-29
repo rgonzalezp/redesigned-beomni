@@ -35,11 +35,8 @@ Meteor.methods({
   //fix methods to work with objects.
   'objects.insert'(price,email,imageurl,title,description,alttext) {
 
-    check(email, String);
     // Make sure the user is logged in before inserting an object
-    if (! this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
+   
 
     console.log('what is this.userId: ', this.userId);
     

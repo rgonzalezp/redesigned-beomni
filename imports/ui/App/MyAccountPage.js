@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import PrimarySearchBar from '../Shared/Home/PrimarySearchBar.js';
 import './MyAccountPage.css';
+import  { Meteor }  from 'meteor/meteor';
 
 class MyAccountPage extends Component {
   constructor(props){
@@ -59,8 +60,27 @@ class MyAccountPage extends Component {
     this.setState({address: e.target.value});
   }
 
-  handleSubmit(e){
-
+  handleSubmit(){
+  	let este = this;
+    Meteor.call(
+      'objects.insert',
+      {
+        price: this.state.price,
+        email: this.state.email,
+        imageurl: this.state.imageurl,
+        title: this.state.title,
+        description: this.state.description,
+        alttext: this.state.alttext,
+ 
+      },
+      (err, res) => {
+        if (err) 
+          alert(err.error);
+       
+        este.props.history.push('/myaccount');
+        
+      }
+    );
   }
 
 
