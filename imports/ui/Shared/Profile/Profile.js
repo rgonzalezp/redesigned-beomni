@@ -10,7 +10,7 @@ import {Container,
     Input,
     FormText
   } from 'reactstrap';
-import {Users} from '../../../api/users.js'
+import Users from '../../../api/users.js'
 //Get user information from some method or something
 //Show name
 //Show last name
