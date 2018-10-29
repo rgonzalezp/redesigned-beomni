@@ -30,6 +30,8 @@ add demo URL
 - Small note: You need to have installed mongodb and meteor to make the necessary imports to the mongo database and run the app
 - ```meteor npm install``` to install node modules in the project folder
 - ```meteor``` to deploy the local server
+## Google apiKey:
+- Inside the react components folder imports/ui/App , you need to add a file called "shhkey.js" with your google api key.
 
 ## Preview
 ![alt text](preview/Homepage.png "Preview of redesigned-beomni homepage")
