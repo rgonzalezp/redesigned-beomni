@@ -33,13 +33,18 @@ if (Meteor.isServer) {
 Meteor.methods({
 
   //fix methods to work with objects.
-  'objects.insert'(price,email,imageurl,title,description,alttext) {
+  'objects.insert'({
+    price,
+    email,
+    imageurl,
+    title,
+    description,
+    alttext
+  }) {
 
     // Make sure the user is logged in before inserting an object
    
 
-    console.log('what is this.userId: ', this.userId);
-    
       
     Objects.insert({
       price: price,
