@@ -3,6 +3,7 @@ import {withGoogleMap,
      GoogleApiWrapper,
      Polygon,
      Map } from 'google-maps-react';
+
 import key from './shhkey.js';
  
 export class ServiceMap extends Component {
@@ -44,9 +45,9 @@ export class ServiceMap extends Component {
       className="map"
       initialCenter={{
             lat: 4.679226,
-            lng: -74.046426
+            lng: -74.046426,
           }}
-      style={{ height: '50%', position: 'relative', width: '50%' }}
+      style={{ height: '100%', position: 'relative', width: '100%' }}
       zoom={14}>
       <Polygon
         fillColor="#0000FF"

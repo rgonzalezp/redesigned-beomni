@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import ServiceMap from './ServiceMap.js';
 import RentalObject from './RentalObject.js';
+import {Container, 
+  Col, 
+  Form,
+  FormGroup, 
+  Label, 
+  Input,
+  Row
+} from 'reactstrap';
+import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import PrimarySearchBar from '../Shared/Home/PrimarySearchBar.js';
+import './MyAccountPage.css';
 
 class MyAccountPage extends Component {
   constructor(props){
@@ -15,7 +25,8 @@ class MyAccountPage extends Component {
       email: localStorage.getItem('correo'),
       description: '',
       imageurl: '',
-      alttext: ''
+      alttext: '',
+      address:''
     };
 
 
@@ -23,25 +34,33 @@ class MyAccountPage extends Component {
 
 
   handleChangeTitle(e){
-    var title = this.refs.inputa.value;
-    this.setState({title: title});
+  
+    this.setState({title: e.target.value});
   }
   handleChangePrice(e){
-    var price = this.refs.inputb.value;
-    this.setState({price: price});
+
+    this.setState({price: e.target.value});
   }
 
   handleChangeDescription(e){
-    var description = this.refs.inputc.value;
-    this.setState({description: description});
+
+    this.setState({description: e.target.value});
   }
   handleChangeImageurl(e){
-    var imageurl = this.refs.inputd.value;
-    this.setState({imageurl: imageurl});
+
+    this.setState({imageurl: e.target.value});
   }
   handleChangeAlttext(e){
-    var alttext = this.refs.inpute.value;
-    this.setState({alttext: alttext});
+
+    this.setState({alttext: e.target.value});
+  }
+  handleChangeAddress(e){
+
+    this.setState({address: e.target.value});
+  }
+
+  handleSubmit(e){
+
   }
 
 
@@ -51,20 +70,99 @@ class MyAccountPage extends Component {
         <PrimarySearchBar/>
         
 
-        <div>
-          <input onChange={this.handleChangeTitle.bind(this)} ref='inputa'/>
-          <input onChange={this.handleChangePrice.bind(this)} ref='inputb'/>
-          <input onChange={this.handleChangeDescription.bind(this)} ref='inputc'/>
-          <input onChange={this.handleChangeImageurl.bind(this)} ref='inputd'/>
-          <input onChange={this.handleChangeAlttext.bind(this)} ref='inpute'/>
-          <RentalObject 
-            price={this.state.price} 
-            title={this.state.title} 
-            email={this.state.email} 
-            description={this.state.description} 
-            imageurl={this.state.imageurl}/>
-          <ServiceMap/>
-        </div>
+       
+        <Container className="App contained">
+          <h1>Add your rental items</h1>
+          <Row>
+            <Col xs="12" sm="7">
+              <FormGroup>
+                <Label id="titleLabel" >Product name</Label>
+                <Input
+                  id="title"
+                  aria-label="Input your product name"
+                  name="title"
+                  type="text"
+                  value={this.state.title}
+                  onChange={this.handleChangeTitle.bind(this)}
+                  ref='inputa'
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label id="priceLabel" for="examplePassword">Price</Label>
+                <Input
+                  id="price"
+                  aria-label="Input your product price per day"
+                  name="price"
+                  type="text"
+                  value={this.state.price}
+                  onChange={this.handleChangePrice.bind(this)}
+                  ref='inputb'
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label id="descriptionLabel" for="examplePassword">Description of your product</Label>
+                <Input
+                  id="description"
+                  aria-label="Input your product description"
+                  name="description"
+                  type="text"
+                  value={this.state.password}
+                  onChange={this.handleChangeDescription.bind(this)}
+                  ref='inputc'
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label id="imageurlLabel" for="examplePassword">Image url</Label>
+                <Input
+                  id="imageurl"
+                  aria-label="Input your imageurl please"
+                  name="imageurl"
+                  type="text"
+                  value={this.state.imageurl}
+                  onChange={this.handleChangeImageurl.bind(this)}
+                  ref='inputd'
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label id="alttextLabel" for="examplePassword">Alternate text for image</Label>
+                <Input
+                  id="alttext"
+                  aria-label="Input your image description for our fellow blind folks"
+                  name="alttext"
+                  type="text"
+                  value={this.state.alttext}
+                  onChange={this.handleChangeAlttext.bind(this)}
+                  ref='inpute'
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label id="addressLabel" for="examplePassword">Address to make the pick up</Label>
+                <Input
+                  id="address"
+                  aria-label="Input your address to pick up"
+                  name="address"
+                  type="text"
+                  value={this.state.address}
+                  onChange={this.handleChangeAddress.bind(this)}
+                  ref='inputf'
+                />
+              </FormGroup>
+              <Button onClick={this.handleSubmit.bind(this)} className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
+            </Col>
+            <Col xs="12" sm="5" >
+              <Container className="App contained">
+                <RentalObject 
+                  price={this.state.price} 
+                  title={this.state.title} 
+                  email={this.state.email} 
+                  description={this.state.description} 
+                  imageurl={this.state.imageurl}/>
+                <ServiceMap/>
+              </Container>
+            </Col>
+          </Row>
+        </Container>
+       
       </div>
     );
   }
