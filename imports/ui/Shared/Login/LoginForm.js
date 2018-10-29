@@ -62,13 +62,13 @@ class LoginForm extends React.Component {
         password: this.state.password
       },
       (err, res) => {
-        if (err) {
+        if (err) 
           alert(err.error);
-        } else {
+       
           localStorage.setItem('sessionToken', res);
-          localStorage.setItem('correo', email);
+          localStorage.setItem('correo', this.state.username);
           este.props.history.push('/');
-        }
+        
       }
     );
   }
