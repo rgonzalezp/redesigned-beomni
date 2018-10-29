@@ -41,16 +41,43 @@ class Account extends Component {
         this.renderEdit = this.renderEdit.bind(this);
         this.renderNoEdit =this.renderNoEdit.bind(this);
         this.handleTriggerEdit = this.handleTriggerEdit.bind(this);
-        this.renderEditButton_4real = this.renderEditButton_4real.bind(this)
-        this.renderUpdateProfileBtn = this.renderUpdateProfileBtn.bind(this)
-        this.updateName = this.updateName.bind(this)
-        this.updateLastName = this.updateLastName.bind(this)
+        this.renderEditButton_4real = this.renderEditButton_4real.bind(this);
+        this.renderUpdateProfileBtn = this.renderUpdateProfileBtn.bind(this);
+        this.updateName = this.updateName.bind(this);
+        this.updateLastName = this.updateLastName.bind(this);
+        this.handleInputUrl = this.handleInputUrl.bind(this);
+        this.updateAvatar = this.updateAvatar.bind(this);
 
       }
     
 
       handleTriggerEdit = () => {
-        this.setState({ edit: !this.state.edit });
+          if(this.state.edit){
+              const estado = this.state
+              console.log('estado!!: ',estado.avatar_url)
+             console.log('meteorcarllres: ',estado.avatar_url)
+                this.setState({ edit: !this.state.edit });
+              
+                Meteor.call("users.find", estado.username, function(error, result){
+                    console.log('user.find)')
+                    if(error){
+                      console.log(error.reason);
+                      return;
+                    }
+                    // do something with result
+                    console.log('do something with result: ',estado.avatar_url, result)
+                    Meteor.call('users.updateAvatar',estado.avatar_url,result,function(err,res){
+                        if(err){
+                            console.log(error.reason);
+                            return;
+                          }
+                          return true
+                    })
+                  });
+
+          }else{
+            this.setState({ edit: !this.state.edit });
+          }
       };
 
       updateName(nom){
@@ -74,7 +101,7 @@ class Account extends Component {
         return ( <InputGroup>
             <Row>
               <InputGroupAddon addonType="prepend">Username --    e-mail</InputGroupAddon>
-              <Input placeholder="username" />
+              <Input value={this.state.username?this.state.username:'username'}readOnly/>
             </Row>
             <Row>
               <InputGroupAddon addonType="prepend"> First Name
@@ -122,11 +149,15 @@ class Account extends Component {
         }
         return (
             <Avatar
-              alt="Try again"
+              alt="Looks like you don't have an avatar, please upload!"
               src={url_avatar}
               class='avatar'
             />)
         
+    }
+    handleInputUrl(ev){
+        console.log('handleinput: ',ev.target.value)
+        this.updateAvatar(ev.target.value)
     }
     uploadAvatarImage(){
             return ( 
@@ -134,7 +165,7 @@ class Account extends Component {
             <FormGroup row>
             <Label className="text-primary" for="exampleText" sm={2}></Label>
             <Col sm={10}>
-            <Input type="textarea" name="text" id="exampleText" />
+            <Input type="textarea" name="text" id="exampleText" onChange={this.handleInputUrl}/>
             </Col>
             </FormGroup>
             </Form>
@@ -161,14 +192,14 @@ class Account extends Component {
     renderEditButton_4real(){
         return (            <Row>
             <Col lg='12'>
-        <Button color="primary" size="lg" block>Edit Profile</Button>
+        <Button color="primary" size="lg" onClick={this.handleTriggerEdit} block>Edit Profile</Button>
         </Col>
         </Row>)
     }
     renderUpdateProfileBtn(){
         return (            <Row>
             <Col lg='12'>
-        <Button color="success" size="lg" block>Accept Changes! :D </Button>
+        <Button color="success" size="lg" onClick={this.handleTriggerEdit} block>Accept Changes! :D </Button>
         </Col>
         </Row>)    
     }
@@ -201,11 +232,12 @@ class Account extends Component {
                 este.updateName(result.firstName)
                 este.updateLastName(result.lastName)
                 este.updateUsername(result.email)
-                try{
+                if(typeof(result.avatar_url)!=='undefined'){
+                    console.log('Try: ', result.avatar_url)
                     este.updateAvatar(result.avatar_url)
                 }
-                catch(e){
-                    este.updateAvatar('null')
+                else{
+                    console.log('Catch: ', result)
                 }
             })
         }
@@ -217,11 +249,14 @@ class Account extends Component {
 }
 
 async function getUser(correo){
-     return new Promise(function(resolve){ Meteor.call('users.find',correo,   (err, res) => {
+     return new Promise(function(resolve){ 
+         console.log('dentro de la promesa)')
+        console.log(correo)
+         Meteor.call('users.find',correo,   (err, res) => {
         if (err) {
           alert(err.error);
         } else {
-            console.log('primero : ', res)
+            console.log('primero : ', res)  
         return resolve(res)
         }
       }
@@ -231,6 +266,8 @@ async function getUser(correo){
 export default withTracker((props) => {
     
         const correo = localStorage.getItem('correo')
+        console.log('withtracker')
+        console.log(correo)
      let user =   getUser(correo)
 
      console.log('user_2: ', user)
