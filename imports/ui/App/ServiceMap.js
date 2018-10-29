@@ -31,15 +31,21 @@ export class ServiceMap extends Component {
 
   render() {
  const polygon = [
-    { lat: 37.789411, lng: -122.422116 },
-    { lat: 37.785757, lng: -122.421333 },
-    { lat: 37.789352, lng: -122.415346 }
+    { lat: 4.684192, lng: -74.048591 },
+    { lat: 4.679669, lng: -74.038973 },
+    { lat: 4.669161, lng: -74.045765 },
+    { lat: 4.674838, lng: -74.058620 }
+
 ];
  
   return(
     <Map
       google={this.props.google}
       className="map"
+      initialCenter={{
+            lat: 4.679226,
+            lng: -74.046426
+          }}
       style={{ height: '50%', position: 'relative', width: '50%' }}
       zoom={14}>
       <Polygon
