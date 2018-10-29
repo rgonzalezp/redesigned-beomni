@@ -50,6 +50,10 @@ Meteor.methods({
       email: email
     });
     return user;
+  },'users.find'() {
+
+    console.log(Meteor.user())
+    console.log('helos fresh')
   },
   'users.validateUser'({
     email,

@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css';
+import Profile from './Shared/Profile/Profile.js';
+import Account from './Shared/Account/Account.js';
 
 const themeColor = createMuiTheme({
   palette: {
@@ -52,6 +54,8 @@ class App extends Component {
             <Route path="/register" exact component={RegisterPage} />
             <Route path="/login" exact component={LoginPage} />
             <Route path="/myaccount" exact component={MyAccountPage} />
+            <Route path="/profile" exact component={Profile}/>
+            <Route path="/accountSettings" exact component={Account}/>
           </Switch>
         </BrowserRouter>
       </div>
