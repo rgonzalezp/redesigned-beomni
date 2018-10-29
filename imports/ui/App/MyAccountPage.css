@@ -20,6 +20,20 @@
 	padding-top: 25%;
 	padding-bottom: 25%;
 }
-.conteService{
-	padding-top: 25%;
+.rowDown{
+	padding-top: 5%;
+	width: 100vw;
+	height: 50vw;
+}
+#GoRentals{
+	padding-inline-start: 40%;
+	padding-top: 40%;
+
+}
+#holderRental{
+	background-image: url('img/hikingmobile.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
 }

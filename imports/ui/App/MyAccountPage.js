@@ -188,17 +188,21 @@ class MyAccountPage extends Component {
                   description={this.state.description} 
                   imageurl={this.state.imageurl}/>
                 </Container>
-                <Container className='conteService'>
-                <ServiceMap/>
-                </Container>
-           
               </Container>
             </Col>
           </Row>
-          <Row>
+          <Row className='rowDown'>
+            <Col lg='6' id='holderRental'>
             <Container id='GoRentals'>
-
+            <Button  className="rentbtns"  variant="contained" color="primary" size="large">Let's rent!!!</Button>
             </Container>
+                </Col>
+                <Col lg='6'>
+                <Container className='conteService'>
+                <ServiceMap/>
+                </Container>
+            </Col>
+          
           </Row>
         </Container>
        
