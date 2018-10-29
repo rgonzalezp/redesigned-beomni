@@ -43,29 +43,27 @@ Meteor.methods({
     }
 
   },'users.updateAvatar'({
-  user, estado
+    firstName,
+    lastName,
+    email
   }) {
 
+    console.log(firstName);
+    console.log( lastName);
+    console.log(email);
 
-      Users.update(user, { $set: { avatar_url: estado } })
-    return true
+
+    Users.update( {'email': email }, { $set: { firstName: firstName, lastName: lastName } });
+    return true;
   },
   'users.findUser'({  
     email
   }) {
-    check(email, String);
 
     const user = Users.findOne({
       email: email
     });
     return user;
-  },'users.find'({email}) {
-
-    const user = Users.findOne({
-      email: email
-    });
-    console.log('user_fdn: ',user, email)
-   return user
   },
   'users.validateUser'({
     email,

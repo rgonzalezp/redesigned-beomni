@@ -32,7 +32,7 @@ class Account extends Component {
             edit: false,
             name:'',
             last: '',
-            username:'',
+            username:localStorage.getItem('correo'),
             avatar_url:''
             };
         this.renderProfile = this.renderProfile.bind(this);
@@ -52,39 +52,30 @@ class Account extends Component {
     
 
       handleTriggerEdit = () => {
-          if(this.state.edit){
-              const estado = this.state
-              console.log('estado!!: ',estado.avatar_url)
-             console.log('meteorcarllres: ',estado.avatar_url)
-                this.setState({ edit: !this.state.edit });
-              
-                Meteor.call("users.find", estado.username, function(error, result){
-                    console.log('user.find)')
-                    if(error){
-                      console.log(error.reason);
-                      return;
-                    }
-                    // do something with result
-                    console.log('do something with result: ',estado.avatar_url, result)
-                    Meteor.call('users.updateAvatar',estado.avatar_url,result,function(err,res){
+        
+
+              Meteor.call('users.updateAvatar',{firstName:this.state.name,lastName:this.state.last,email:this.state.username},function(err,res){
                         if(err){
                             console.log(error.reason);
                             return;
                           }
                           return true
                     })
-                  });
+           
+              this.setState({ edit: !this.state.edit });
+              
+                
+                  
+                    
+            
 
-          }else{
-            this.setState({ edit: !this.state.edit });
-          }
       };
 
       updateName(nom){
-        this.setState({name:nom})
+        this.setState({name:nom.target.value})
       }
       updateLastName(nom){
-        this.setState({last:nom})
+        this.setState({last:nom.target.value})
       }
 
       updateUsername(nom){
@@ -100,18 +91,18 @@ class Account extends Component {
     renderEdit(){
         return ( <InputGroup>
             <Row>
-              <InputGroupAddon addonType="prepend">Username --    e-mail</InputGroupAddon>
+              <InputGroupAddon addonType="prepend">Username/e-mail</InputGroupAddon>
               <Input value={this.state.username?this.state.username:'username'}readOnly/>
             </Row>
             <Row>
               <InputGroupAddon addonType="prepend"> First Name
               </InputGroupAddon>
-              <Input placeholder="First Name!" />
+              <Input onChange={this.updateName} placeholder="First Name!" />
               </Row>
               <Row>
               <InputGroupAddon addonType="prepend"> Last Name
               </InputGroupAddon>
-              <Input placeholder="Last Name!" />
+              <Input onChange={this.updateLastName} placeholder="Last Name!" />
               </Row>
             </InputGroup>)
     }
@@ -252,7 +243,7 @@ async function getUser(correo){
      return new Promise(function(resolve){ 
          console.log('dentro de la promesa)')
         console.log(correo)
-         Meteor.call('users.find',correo,   (err, res) => {
+         Meteor.call('users.findUser',JSON.stringify(correo),   (err, res) => {
         if (err) {
           alert(err.error);
         } else {
