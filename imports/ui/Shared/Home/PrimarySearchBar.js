@@ -187,7 +187,7 @@ class PrimarySearchBar extends React.Component {
          console.log('hey')
          console.log(prev)
          console.log(this)
-        localStorage.setItem('filter', this.state.search);
+         localStorage.setItem('filter', this.state.search);
         this.context.router.history.push('/results');
 
        }

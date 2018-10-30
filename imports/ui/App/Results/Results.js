@@ -65,6 +65,15 @@ export default withTracker((props) => {
     
     const filter = localStorage.getItem('filter')
     console.log('filter: ',filter)
-    const new_finding = finding.filter( obj=>obj.title===filter)
+    let new_finding=''
+    if(filter===''){
+        localStorage.setItem('filter', '');
+         new_finding = finding
+    }
+    else{
+         new_finding = finding.filter( obj=>obj.title===filter)
+      
+    }
+
     return {data:new_finding}
 })(Results);
