@@ -25,6 +25,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import './PrimarySearchBar.css';
+import { withRouter } from 'react-router-dom';
 
 import  { Meteor }  from 'meteor/meteor';
 
@@ -331,4 +332,4 @@ PrimarySearchBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PrimarySearchBar);
+export default withRouter(withStyles(styles)(PrimarySearchBar));

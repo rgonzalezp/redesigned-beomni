@@ -5,6 +5,7 @@ import  PrimarySearchBar from '../../Shared/Home/PrimarySearchBar.js';
 import RentalObject from '../RentalObject.js';
 import {Objects} from '../../../api/objects.js'
 import {Container,  Col, Row } from 'reactstrap';
+
 class Results extends Component {
   
     constructor(props){
