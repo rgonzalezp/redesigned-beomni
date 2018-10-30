@@ -40,3 +40,5 @@ http://40.76.46.156:3000
 ## Copyright and license
 Code Copyright 2018 Ricardo Enrique Gonzalez Peñuela, Esteban Galvis. Code released under the MIT license.
 
+## Preview
+![alt text](trabajo4.png)
