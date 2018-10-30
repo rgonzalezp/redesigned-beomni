@@ -1,0 +1,74 @@
+import React, { Component } from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
+import  { Meteor }  from 'meteor/meteor';
+import  PrimarySearchBar from '../../Shared/Home/PrimarySearchBar.js';
+import RentalObject from '../RentalObject.js';
+import {Objects} from '../../../api/objects.js'
+import {Container,  Col, Row } from 'reactstrap';
+class Results extends Component {
+  
+    constructor(props){
+        super(props);
+        this.state = {
+            rent :[]
+        };
+        this.renderRentProducts = this.renderRentProducts.bind(this);
+    }
+
+    renderRentProducts(){
+
+        const datos = this.props.data
+        const este  = this
+        console.log('renderproductos: ', datos)
+        console.log(typeof(datos))
+        console.log(this)
+      return  (datos.map((product)=>{  
+          console.log('hellomap: ',product)
+            return (<Col lg='4' key={product._id}>
+            <RentalObject       
+        title={product.title}
+        price={product.price}
+        description={product.description}
+        imageurl= {product.imageurl}
+        alttext= {product.alttext}
+      >
+      </RentalObject>
+            </Col>)
+        }))
+    }
+    renderRentDummy(){
+        console.log('funcion: ',this)
+        return this.props.data.map((prod)=>{
+            return (<div key={prod._id}> hola</div>)
+        })
+    }
+    render() {
+        return (
+            <Container>
+                 <PrimarySearchBar/>
+                 <Container>
+                     <Row>
+                 {this.renderRentProducts()}
+                 </Row>
+                 </Container>
+
+            </Container>
+        );
+    }
+    static getDerivedStateFromProps(curr,prev){
+        console.log('ComponentDidmout')
+        console.log('curr')
+        console.log(curr)
+        console.log(prev)
+        return {rent:curr.data}
+    }
+}
+
+
+
+export default withTracker((props) => {
+    Meteor.subscribe('object')
+    const finding = Objects.find({}).fetch()    
+    console.log('finding: ',finding)
+    return {data:finding}
+})(Results);

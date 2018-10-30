@@ -194,7 +194,7 @@ class MyAccountPage extends Component {
           <Row className='rowDown'>
             <Col lg='6' id='holderRental'>
             <Container id='GoRentals'>
-            <Button  className="rentbtns"  variant="contained" color="primary" size="large">Let's rent!!!</Button>
+            <Button  href="/results" className="rentbtns"  variant="contained" color="primary" size="large">Let's rent!!!</Button>
             </Container>
                 </Col>
                 <Col lg='6'>

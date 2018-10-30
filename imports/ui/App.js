@@ -10,6 +10,8 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css';
 import Profile from './Shared/Profile/Profile.js';
 import Account from './Shared/Account/Account.js';
+import Results from './App/Results/Results.js';
+
 
 const themeColor = createMuiTheme({
   palette: {
@@ -56,6 +58,7 @@ class App extends Component {
             <Route path="/myaccount" exact component={MyAccountPage} />
             <Route path="/profile" exact component={Profile}/>
             <Route path="/accountSettings" exact component={Account}/>
+            <Route path="/results" exact component={Results}/>
           </Switch>
         </BrowserRouter>
       </div>
