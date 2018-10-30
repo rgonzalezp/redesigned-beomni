@@ -33,12 +33,10 @@ http://40.76.46.156:3000
 - Inside the react components folder imports/ui/App , you need to add a file called "shhkey.js" with your google api key.
 
 ## Preview
-![alt text](preview/Homepage.png "Preview of redesigned-beomni homepage")
-![alt text](preview/Gameroom.png "Preview of redesigned-beomni search results")
+![alt text](trabajo4.png)
 
 
 ## Copyright and license
 Code Copyright 2018 Ricardo Enrique Gonzalez Peñuela, Esteban Galvis. Code released under the MIT license.
 
-## Preview
-![alt text](trabajo4.png)
+
