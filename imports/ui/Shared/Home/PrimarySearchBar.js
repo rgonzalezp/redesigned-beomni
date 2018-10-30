@@ -147,6 +147,8 @@ class PrimarySearchBar extends React.Component {
 
   logOut = () => {
     localStorage.removeItem('sessionToken');
+    localStorage.removeItem('correo')
+    localStorage.removeItem('filter')
     this.setState({
       token: null,
       name: null,
