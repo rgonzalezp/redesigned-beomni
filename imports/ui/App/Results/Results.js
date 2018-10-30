@@ -10,7 +10,8 @@ class Results extends Component {
     constructor(props){
         super(props);
         this.state = {
-            rent :[]
+            rent :[],
+            filter:'',
         };
         this.renderRentProducts = this.renderRentProducts.bind(this);
     }
@@ -19,9 +20,7 @@ class Results extends Component {
 
         const datos = this.props.data
         const este  = this
-        console.log('renderproductos: ', datos)
-        console.log(typeof(datos))
-        console.log(this)
+
       return  (datos.map((product)=>{  
           console.log('hellomap: ',product)
             return (<Col lg='4' key={product._id}>
@@ -55,20 +54,16 @@ class Results extends Component {
             </Container>
         );
     }
-    static getDerivedStateFromProps(curr,prev){
-        console.log('ComponentDidmout')
-        console.log('curr')
-        console.log(curr)
-        console.log(prev)
-        return {rent:curr.data}
-    }
 }
 
 
 
 export default withTracker((props) => {
     Meteor.subscribe('object')
-    const finding = Objects.find({}).fetch()    
-    console.log('finding: ',finding)
-    return {data:finding}
+    const finding = Objects.find({}).fetch()  
+    
+    const filter = localStorage.getItem('filter')
+    console.log('filter: ',filter)
+    const new_finding = finding.filter( obj=>obj.title===filter)
+    return {data:new_finding}
 })(Results);

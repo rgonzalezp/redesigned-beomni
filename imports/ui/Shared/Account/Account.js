@@ -16,12 +16,6 @@ import {Container,
     Button
   } from 'reactstrap';
 import {Users} from '../../../api/users.js'
-//Get user information from some method or something
-//Show name
-//Show last name
-//Change Avatar
-//Change status
-
 
 
 class Account extends Component {
@@ -259,7 +253,7 @@ async function getUser(correo){
      return new Promise(function(resolve){ 
          console.log('dentro de la promesa)')
         console.log(correo)
-         Meteor.call('users.findUser',JSON.stringify(correo),   (err, res) => {
+         Meteor.call('users.findUser',{correo},   (err, res) => {
         if (err) {
           alert(err.error);
         } else {
@@ -274,7 +268,7 @@ export default withTracker((props) => {
     
         const correo = localStorage.getItem('correo')
         console.log('withtracker')
-        console.log(props)
+        console.log(Users.find({}))
         console.log(correo)
      let user =   getUser(correo)
 

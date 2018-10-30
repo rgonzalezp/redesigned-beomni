@@ -63,7 +63,7 @@ Meteor.methods({
   }) {
 
     const user = Users.findOne({
-      email: email
+      'email': email
     });
     return user;
   },

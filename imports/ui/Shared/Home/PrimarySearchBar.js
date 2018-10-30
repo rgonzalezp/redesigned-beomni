@@ -26,6 +26,9 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import './PrimarySearchBar.css';
 
+import  { Meteor }  from 'meteor/meteor';
+
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -132,8 +135,9 @@ class PrimarySearchBar extends React.Component {
     this.state = {
     token: localStorage.getItem('sessionToken'),
     name: this.props.firstName,
+    search:'',
     };
-
+    this.handleThisSearch = this.handleThisSearch.bind(this);
   }
    state = {
     anchorEl: null,
@@ -144,7 +148,7 @@ class PrimarySearchBar extends React.Component {
     localStorage.removeItem('sessionToken');
     this.setState({
       token: null,
-      name: null
+      name: null,
     });
     this.handleMenuClose();
   }
@@ -165,6 +169,41 @@ class PrimarySearchBar extends React.Component {
   handleMobileMenuClose = () => {
     this.setState({ mobileMoreAnchorEl: null });
   };
+
+
+  handleThisSearch(evt){
+  this.setState({search: evt.target.value}) 
+  };
+
+  handleKeySearch = evt=> {
+    if(evt.key === 'Enter'){
+      console.log('Keyserch: ', evt)
+      try{
+        console.log('keytry')
+       const prev=  localStorage.getItem('filter')
+       console.log(prev)
+       if(prev!==this.state.search){
+         console.log('hey')
+         console.log(prev)
+         console.log(this)
+        localStorage.setItem('filter', this.state.search);
+        this.context.router.history.push('/results');
+
+       }
+       else{
+         console.log(this)
+         this.context.router.history.push('/results');
+
+       }
+      }
+      catch(e){
+        console.log('exceptkeycatch: ',e)
+        console.log(this)
+        localStorage.setItem('filter', this.state.search);
+        this.props.history.push('/results');
+      }
+   }
+  }
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
@@ -217,6 +256,7 @@ class PrimarySearchBar extends React.Component {
       </Menu>
     );
 
+
     return (
       <div className={classes.root}>
       <MuiThemeProvider theme={theme}>
@@ -234,6 +274,8 @@ class PrimarySearchBar extends React.Component {
                   id="standard-with-placeholder"
                   label="Search for your items"
                   InputProps={{
+                  onChange:this.handleThisSearch,
+                  onKeyPress:this.handleKeySearch,
                   startAdornment: (
                 <div className={classes.searchIcon}>
                 <SearchIcon />

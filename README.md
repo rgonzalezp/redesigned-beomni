@@ -10,8 +10,7 @@
 - [Copyright and license](#copyright-and-license)
 
 ## Demo
-add demo URL
-
+http://40.76.46.156:3000
 ## Objectives
 - Create an useful platform that helps with a real world problem
 
