@@ -253,7 +253,7 @@ async function getUser(correo){
      return new Promise(function(resolve){ 
          console.log('dentro de la promesa)')
         console.log(correo)
-         Meteor.call('users.findUser',{correo},   (err, res) => {
+         Meteor.call('users.findUser',{'email':correo},   (err, res) => {
         if (err) {
           alert(err.error);
         } else {
@@ -266,11 +266,7 @@ async function getUser(correo){
 
 export default withTracker((props) => {
     
-        const correo = localStorage.getItem('correo')
-        console.log('withtracker')
-        console.log(Users.find({}))
-        console.log(correo)
-     let user =   getUser(correo)
+     let user =   getUser(localStorage.getItem('correo'))
 
      console.log('user_2: ', user)
              return {user:user}

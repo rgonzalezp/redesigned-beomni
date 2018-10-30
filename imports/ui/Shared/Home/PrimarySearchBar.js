@@ -235,10 +235,10 @@ class PrimarySearchBar extends React.Component {
       > 
       {this.state.token?
         <div>
-          <Link to="/profile" >
+          <Link to="/accountSettings" >
           <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
           </Link>
-          <Link to="/accountSettings" >
+          <Link to="/myaccount" >
           <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
           </Link>
           <Link to="/" >

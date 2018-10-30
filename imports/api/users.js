@@ -61,10 +61,11 @@ Meteor.methods({
   'users.findUser'({  
     email
   }) {
-
+    console.log(email);
     const user = Users.findOne({
       'email': email
     });
+
     return user;
   },
   'users.validateUser'({
