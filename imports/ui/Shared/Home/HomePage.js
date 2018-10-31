@@ -144,7 +144,7 @@ class HomePage extends Component {
                 <Grid container spacing={16} justify="center">
                   <Grid item>
                     <Typography variant="title" align="center" style={{color:"#fff"}} paragraph>
-                  First time around?
+                      First time around?
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -168,7 +168,7 @@ class HomePage extends Component {
                 <Grid container spacing={16} justify="center">
                   <Grid item>
                     <Typography variant="title" align="center" color="textPrimary" paragraph>
-                  First time around?
+                      First time around?
                     </Typography>
                   </Grid>
                   <Grid item>

@@ -22,13 +22,12 @@ Meteor.methods({
   }) {
 
     try {
-    	console.log("entro");
       Users.insert({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
+        firstName,
+        lastName,
+        email,
         password: cryptr.encrypt(password),
-        avatar_url: avatar_url
+        avatar_url
       });
       console.log("added user", email);
       return true;
@@ -55,18 +54,18 @@ Meteor.methods({
     console.log(url)
 
 
-    Users.update( {'email': email }, { $set: { firstName: firstName, lastName: lastName , avatar_url:url} });
+    Users.update( {'email': email }, { $set: { 
+      firstName,
+      lastName,
+      avatar_url:url
+    } });
     return true;
   },
   'users.findUser'({  
     email
   }) {
     console.log(email);
-    const user = Users.findOne({
-      'email': email
-    });
-
-    return user;
+    return Users.findOne({email});
   },
   'users.validateUser'({
     email,
@@ -77,9 +76,7 @@ Meteor.methods({
 
     let user = null;
 
-    user = Users.findOne({
-      email: email
-    });
+    user = Users.findOne({email});
 
     if (!user) {
       throw new Meteor.Error('There is no account associated with this email');
@@ -90,6 +87,8 @@ Meteor.methods({
     }
 
     delete user.clave;
+    //Wouldn't it be
+    //delete user.password; ?
 
     let token = jwt.sign(user, 'secretKeyAgain');
 
@@ -115,5 +114,5 @@ Meteor.methods({
 });
 
 function decodeToken(token) {
-  return token ? jwt.verify(token, 'secretKeyAgain') : null;
+  return token && jwt.verify(token, 'secretKeyAgain');
 }

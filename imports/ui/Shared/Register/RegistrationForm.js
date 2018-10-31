@@ -88,10 +88,10 @@ const themeColor = createMuiTheme({
     Meteor.call(
       'users.addUser',
       {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
+        firstName,
+        lastName,
+        email,
+        password,
         avatar_url:''
       },
       (err, res) => {

@@ -21,11 +21,9 @@ if (Meteor.isServer) {
     });
   });
 
-  Meteor.publish('object', function objectPublication(owr) {
-    console.log('Entro a publish task',owr);
-    return Objects.find({
-      owner:owr
-    });
+  Meteor.publish('object', function objectPublication(owner) {
+    console.log('Entro a publish task',owner);
+    return Objects.find({ owner });
   });
 
 }
@@ -41,24 +39,18 @@ Meteor.methods({
     description,
     alttext
   }) {
-
     // Make sure the user is logged in before inserting an object
-   
-
+   if(!Meteor.user()) return new Meteor.Error("Unauthorized");
       
     Objects.insert({
-      price: price,
-      email: email,
-      imageurl: imageurl,
-      title: title,
-      description: description,
-      alttext: alttext,
+      price,
+      email,
+      imageurl,
+      title,
+      description,
+      alttext,
       rented: false,
-  
     });  
-
-    
-
   },
   //object removal
   'objects.remove'(objectId,userId) {
@@ -67,15 +59,11 @@ Meteor.methods({
 
     const task = Tasks.findOne(objectId);
 
-    if (task.private && task.owner !== this.userId) {
-
+    if (task.private && task.owner !== /*Why 'this'?*/ this.userId) {
       // If the task is private, make sure only the owner can delete it
-
       throw new Meteor.Error('not-authorized');
-
     }
  
-
     Objects.remove(objectId);
   },
 
@@ -99,14 +87,14 @@ Meteor.methods({
   },
   
   
-  // fix this updater to work when to object is rented
+  //TODO fix this updater to work when to object is rented
   'objects.updateObjectToRented'(objectId, userId) {
     const task = Tasks.findOne(taskId);
     console.log('updateTasksBlack: ', task)
     console.log(carta)
     Tasks.update(task._id, { $set: { blackcard: carta } });
   },
-  // fix this updater to update the rating of the object
+  //TODO fix this updater to update the rating of the object
   'objects.updateObjectRating'(objectId, userId,score) {
     const task = Tasks.findOne(taskId);
     console.log('updateTasksBlack: ', task)

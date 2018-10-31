@@ -37,7 +37,7 @@ export default class Login extends Component {
   }
 
   async checkAuthentication() {
-  	//here check authentication with jwt
+  	//ceck authentication with jwt
 
     
   }
@@ -48,12 +48,11 @@ export default class Login extends Component {
 
   render() {
     if (this.state.authenticated === null) return <MuiThemeProvider theme={theme}><CircularProgress className="centered" size={80} color="primary"></CircularProgress></MuiThemeProvider>;
-    return this.state.authenticated ?
-      <Redirect to={{ pathname: '/' }} /> :
+    return /* this.state.authenticated === true */  (<Redirect to={{ pathname: '/' }} />); /* Unreachable code :
       <div>
       <Navigation/>
       <LoginForm baseUrl={this.props.baseUrl} />
-      </div>;
+      </div>; */
       
   }
 };

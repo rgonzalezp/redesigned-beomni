@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ServiceMap from './ServiceMap.js';
 import RentalObject from './RentalObject.js';
-import {Container, 
-  Col, 
+import {
+  Container,
+  Col,
   Form,
-  FormGroup, 
-  Label, 
+  FormGroup,
+  Label,
   Input,
   Row
 } from 'reactstrap';
@@ -13,10 +14,10 @@ import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import PrimarySearchBar from '../Shared/Home/PrimarySearchBar.js';
 import './MyAccountPage.css';
-import  { Meteor }  from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 
 class MyAccountPage extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     if (!localStorage.getItem('sessionToken')) {
       this.props.history.push('/');
@@ -24,53 +25,55 @@ class MyAccountPage extends Component {
     this.state = {
       title: '',
       email: localStorage.getItem('correo'),
-      price:'',
+      price: '',
       description: '',
       imageurl: '',
       alttext: '',
-      address:''
+      address: ''
     };
 
 
   }
 
 
-  handleChangeTitle(e){
-  
-    this.setState({title: e.target.value});
+  handleChangeTitle(e) {
+
+    this.setState({ title: e.target.value });
   }
-  handleChangePrice(e){
+  handleChangePrice(e) {
 
-    this.setState({price: e.target.value});
-  }
-
-  handleChangeDescription(e){
-
-    this.setState({description: e.target.value});
-  }
-  handleChangeImageurl(e){
-
-    this.setState({imageurl: e.target.value});
-  }
-  handleChangeAlttext(e){
-
-    this.setState({alttext: e.target.value});
-  }
-  handleChangeAddress(e){
-
-    this.setState({address: e.target.value});
+    this.setState({ price: e.target.value });
   }
 
-  clearInput(){
-    this.setState({  title: '',
-    price:'',
-    description: '',
-    imageurl: '',
-    alttext: '',
-    address:''})
+  handleChangeDescription(e) {
+
+    this.setState({ description: e.target.value });
   }
-  handleSubmit(){
-  	let este = this;
+  handleChangeImageurl(e) {
+
+    this.setState({ imageurl: e.target.value });
+  }
+  handleChangeAlttext(e) {
+
+    this.setState({ alttext: e.target.value });
+  }
+  handleChangeAddress(e) {
+
+    this.setState({ address: e.target.value });
+  }
+
+  clearInput() {
+    this.setState({
+      title: '',
+      price: '',
+      description: '',
+      imageurl: '',
+      alttext: '',
+      address: ''
+    })
+  }
+  handleSubmit() {
+    let este = this;
     Meteor.call(
       'objects.insert',
       {
@@ -80,14 +83,14 @@ class MyAccountPage extends Component {
         title: this.state.title,
         description: this.state.description,
         alttext: this.state.alttext,
- 
+
       },
       (err, res) => {
-        if (err) 
+        if (err)
           alert(err.error);
         this.clearInput();
         este.props.history.push('/myaccount');
-        
+
       }
     );
   }
@@ -96,10 +99,10 @@ class MyAccountPage extends Component {
   render() {
     return (
       <div>
-        <PrimarySearchBar/>
-        
+        <PrimarySearchBar />
 
-       
+
+
         <Container className="App contained">
           <h1>Add your rental items</h1>
           <Row>
@@ -135,7 +138,7 @@ class MyAccountPage extends Component {
                   aria-label="Input your product description"
                   name="description"
                   type="text"
-                  value={this.state.description }
+                  value={this.state.description}
                   onChange={this.handleChangeDescription.bind(this)}
                   ref='inputc'
                 />
@@ -176,36 +179,36 @@ class MyAccountPage extends Component {
                   ref='inputf'
                 />
               </FormGroup>
-              <Button onClick={this.handleSubmit.bind(this)} className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
+              <Button onClick={this.handleSubmit.bind(this)} className="login-buttons" variant="contained" color="primary" size="large">Let's go</Button>
             </Col>
             <Col xs="12" sm="5" >
               <Container className="App contained">
-              <Container className='conteRent'>
-                <RentalObject 
-                  price={this.state.price} 
-                  title={this.state.title} 
-                  email={this.state.email} 
-                  description={this.state.description} 
-                  imageurl={this.state.imageurl}/>
+                <Container className='conteRent'>
+                  <RentalObject
+                    price={this.state.price}
+                    title={this.state.title}
+                    email={this.state.email}
+                    description={this.state.description}
+                    imageurl={this.state.imageurl} />
                 </Container>
               </Container>
             </Col>
           </Row>
           <Row className='rowDown'>
             <Col lg='6' id='holderRental'>
-            <Container id='GoRentals'>
-            <Button  href="/results" className="rentbtns"  variant="contained" color="primary" size="large">Let's rent!!!</Button>
-            </Container>
-                </Col>
-                <Col lg='6'>
-                <Container className='conteService'>
-                <ServiceMap/>
-                </Container>
+              <Container id='GoRentals'>
+                <Button href="/results" className="rentbtns" variant="contained" color="primary" size="large">Let's rent!!!</Button>
+              </Container>
             </Col>
-          
+            <Col lg='6'>
+              <Container className='conteService'>
+                <ServiceMap />
+              </Container>
+            </Col>
+
           </Row>
         </Container>
-       
+
       </div>
     );
   }

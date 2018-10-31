@@ -42,13 +42,13 @@ class App extends Component {
 
 
   componentDidMount() {
-
+    //This causes a terrible user experience, try to use another lifecycle hook or callback to change 'loaded'
     setTimeout(() => this.setState({ loaded: true }), 1300);
   }
   render() {
 
-    if (this.state.loaded === null) return <MuiThemeProvider theme={themeColor}><CircularProgress className="centered" size={80} color="primary"></CircularProgress></MuiThemeProvider>;
-    return this.state.loaded ? (
+    if (!this.state.loaded) return <MuiThemeProvider theme={themeColor}><CircularProgress className="centered" size={80} color="primary"></CircularProgress></MuiThemeProvider>;
+    else /*this.state.loaded === true*/ return(
       <div>
         <BrowserRouter>
           <Switch>
@@ -62,7 +62,7 @@ class App extends Component {
           </Switch>
         </BrowserRouter>
       </div>
-    ): <div></div>;
+    );
   }
 }
 

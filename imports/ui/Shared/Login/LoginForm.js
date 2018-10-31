@@ -98,6 +98,7 @@ class LoginForm extends React.Component {
                 value={this.state.username}
                 onChange={this.handleUsernameChange}
               />
+              {/* This is VERY confusing for a user */}
               <FormText>Your username is most likely your email.</FormText>
             </FormGroup>
           </Col>
