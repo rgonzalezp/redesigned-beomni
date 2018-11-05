@@ -107,7 +107,8 @@ const themeColor = createMuiTheme({
               } else {
                 localStorage.setItem('sessionToken', res);
                 localStorage.setItem('correo', email);
-                este.props.history.push('/');
+                localStorage.setItem('filter','')
+                este.props.history.push('/results');
               }
             }
           );

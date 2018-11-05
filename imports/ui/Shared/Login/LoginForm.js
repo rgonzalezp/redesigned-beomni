@@ -67,7 +67,8 @@ class LoginForm extends React.Component {
        
           localStorage.setItem('sessionToken', res);
           localStorage.setItem('correo', this.state.username);
-          este.props.history.push('/');
+          localStorage.setItem('filter','')
+          este.props.history.push('/results');
         
       }
     );
