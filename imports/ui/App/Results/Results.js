@@ -24,6 +24,10 @@ class Results extends Component {
             rent :[],
             filter:'',
             open: false,
+            product_4_rent: null,
+            dateFrom: moment().format("YYYY-MM-DDTHH:mm"),
+            dateTo: moment().format("YYYY-MM-DDTHH:mm") 
+
         };
         this.renderRentProducts = this.renderRentProducts.bind(this);
         this.rentObject = this.rentObject.bind(this);
@@ -34,19 +38,21 @@ class Results extends Component {
         this.renderCalendarPickerFrom = this.renderCalendarPickerFrom.bind(this);
         this.triggerChangeTo = this.triggerChangeTo.bind(this);
         this.triggerChangeFrom = this.triggerChangeFrom.bind(this);
+        this.handleRent = this.handleRent.bind(this);
+        this.changeProductoRent = this.changeProductoRent.bind(this);
+        this.calculateDeltaDays = this.calculateDeltaDays.bind(this);
+        this.calculateRentPrice = this.calculateRentPrice.bind(this);
     }
 
     rentObject = (product) =>  {
-        console.log('producto rent: ', product)
-        const user = this.props.user[0]
-        if (user.balance>=product.price){
-            
-        }
-        console.log('props: ',user)
+        this.changeProductoRent(product)
         this.handleClickOpen()
+
     }
 
-    
+  changeProductoRent = (prd) => {
+    this.setState({ product_4_rent: prd });
+  };
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -55,13 +61,56 @@ class Results extends Component {
     this.setState({ open: false });
   };
 
+  calculateEmpty(num){
+      if (num===0){
+          return 1 
+      }
+      else{
+          return num
+      }
+  }
+  calculateDeltaDays(){
+    const dateFrom = moment(this.state.dateFrom)
+    const dateTo   = moment(this.state.dateTo)
+    let diff_days     =  moment.duration(dateTo.diff(dateFrom))._data.days
+    let diff_months    =  moment.duration(dateTo.diff(dateFrom))._data.months
+    diff_days = this.calculateEmpty(diff_days)
+    let total_dif = diff_months *30 + diff_days
+    return total_dif
+  }
+  
+  calculateRentPrice(){
+    const product = this.state.product_4_rent
+    console.log('productis : ',product)
+    if(product!==null){
+        let diff = this.calculateDeltaDays()
+        let price      = diff * product.price
+        return price
+    }
+    else{
+        return 0
+    }
+  }
+
+  handleRent = () => {
+    const user = this.props.user[0]
+    let price      = this.calculateRentPrice()
+    if (user.balance>=price){
+
+        console.log('hellos')
+       // this.setState({ open: false });
+    }
+    else{   
+        alert('You do not have enough funds to rent this item!')
+    }
+  };
+
     renderRentProducts(){
 
         const datos = this.props.data
         const este  = this
 
       return  (datos.map((product)=>{  
-          console.log('hellomap: ',product)
             return (<Col lg='4' key={product._id}>
             <RentalObject 
             rentFunction={this.rentObject}
@@ -77,10 +126,12 @@ class Results extends Component {
         }))
     }
         triggerChangeFrom(e) {
-        console.log(e.target.value);
+            console.log('from: ',e.target.value)
+        this.setState({dateFrom:e.target.value});
       }
       triggerChangeTo(e) {
-        console.log(e.target.value);
+          console.log('to: ',e.target.value)
+          this.setState({dateTo:e.target.value})
       }
     renderCalendarPickerFrom(){
         console.log('entra a from picker')
@@ -123,7 +174,7 @@ class Results extends Component {
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-            <DialogTitle id="form-dialog-title">Calendar</DialogTitle>
+            <DialogTitle class='headerRent' id="form-dialog-title">Calendar</DialogTitle>
             <DialogContent>
               <DialogContentText>
               What dates do you want to rent the item?
@@ -156,12 +207,29 @@ class Results extends Component {
                   </Col>
               </Row>
             </DialogContent>
+            <DialogContent>
+                <DialogContentText>
+                    <Row>
+                    <Col sm='6'>
+                  <h5 class='headerRent'>
+                        Total due:
+                      </h5>
+                      </Col> 
+                      <Col sm='6'>
+                  <h5 class='footerDue'>
+                        {this.calculateRentPrice()}
+                      </h5>
+                      </Col>
+                        </Row>
+                </DialogContentText>
+
+            </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
-              <Button onClick={this.handleClose} color="primary">
-                Subscribe
+              <Button onClick={this.handleRent} color="primary">
+                Rent!
               </Button>
             </DialogActions>
           </Dialog>
