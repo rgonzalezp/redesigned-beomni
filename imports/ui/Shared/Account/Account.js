@@ -28,7 +28,8 @@ class Account extends Component {
             name:'',
             last: '',
             username:localStorage.getItem('correo'),
-            avatar_url:''
+            avatar_url:'',
+            balance:0
             };
         this.renderProfile = this.renderProfile.bind(this);
         this.renderAvatar = this.renderAvatar.bind(this);
@@ -44,6 +45,9 @@ class Account extends Component {
         this.updateAvatar = this.updateAvatar.bind(this);
         this.handleInputName = this.handleInputName.bind(this);
         this.handleInputLast = this.handleInputLast.bind(this);
+        this.updateBalance = this.updateBalance.bind(this);
+        this.renderAddMoreTokensBtn = this.renderAddMoreTokensBtn.bind(this);
+        this.handleAddToken = this.handleAddToken.bind(this);
 
       }
     
@@ -69,8 +73,25 @@ class Account extends Component {
 
       };
 
+      handleAddToken = () => {
+        
+        const este =this
+          Meteor.call('users.updateUserBalance',{email:this.state.username},function(err,res){
+                    if(err){
+                        console.log(error.reason);
+                        return;
+                      }
+                      console.log(este)
+                      este.setState({balance: este.state.balance+100})
+                })
+
+  };
+
       updateName(nom){
         this.setState({name:nom})
+      }
+      updateBalance(nom){
+        this.setState({balance:nom})
       }
       updateLastName(nom){
         this.setState({last:nom})
@@ -192,6 +213,9 @@ class Account extends Component {
         </Col>
         </Row></Container>)
     }
+    renderAddMoreTokensBtn(){
+        return (<Container ><Col md='12'><div class='balance'><Button color="success" onClick={this.handleAddToken}>Add More Tokens!</Button></div></Col></Container>)
+    }
     renderEditButton_4real(){
         return (            <Row>
             <Col lg='12'>
@@ -212,7 +236,19 @@ class Account extends Component {
     }
 
 
-    
+    renderBalance(){
+        return ( <Container>    
+            <Row>
+            <Col sm="12">
+          <h4 class='balancehed'>Balance:</h4>
+            </Col>
+            </Row>
+            <Row>
+            <Col sm="12">
+          <h4 class='balance'>{this.state.balance} <p class='balancehed'>tokens</p></h4>
+            </Col>
+            </Row></Container> )
+    }
     render() {
         return (
             <div>
@@ -221,6 +257,8 @@ class Account extends Component {
                 {this.renderProfile()}
                 { this.state.edit? this.uploadAvatarImage():''} 
                 {this.renderEditButton()}
+                {this.renderBalance()}
+                {this.renderAddMoreTokensBtn()}
             </div>
         );
     }
@@ -236,6 +274,7 @@ class Account extends Component {
                 este.updateName(result.firstName)
                 este.updateLastName(result.lastName)
                 este.updateUsername(result.email)
+                este.updateBalance(result.balance)
                 if(typeof(result.avatar_url)!=='undefined'){
                     console.log('Try: ', result.avatar_url)
                     este.updateAvatar(result.avatar_url)

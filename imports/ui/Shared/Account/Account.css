@@ -9,7 +9,7 @@ font:10px;
 }
 .lblTxt{
     text-align: center ;
-    font-style: italic
+    font-style: italic;
 }
 .urlimg{
     text-align: center;
@@ -17,3 +17,15 @@ font:10px;
     color: #4851A9;
     font-weight: bold;
 }
+.balancehed{
+    text-align: center ;
+    color: #4851A9;
+    font-weight: bold;
+}
+
+.balance{
+    text-align: center ;
+    color:#66BE67;
+    font-style: italic;
+}
+

@@ -28,7 +28,8 @@ Meteor.methods({
         lastName: lastName,
         email: email,
         password: cryptr.encrypt(password),
-        avatar_url: avatar_url
+        avatar_url: avatar_url,
+        balance:0
       });
       console.log("added user", email);
       return true;
@@ -42,7 +43,8 @@ Meteor.methods({
       }
     }
 
-  },'users.updateUser'({
+  },
+  'users.updateUser'({
     firstName,
     lastName,
     email,
@@ -68,6 +70,25 @@ Meteor.methods({
 
     return user;
   },
+  'users.updateUserBalance'({
+    email,
+  }) {
+
+
+    Users.update( {'email': email }, { $inc: { balance: 100} });
+    return true;
+  },
+  'users.findUser'({  
+    email
+  }) {
+    console.log(email);
+    const user = Users.findOne({
+      'email': email
+    });
+
+    return user;
+  },
+
   'users.validateUser'({
     email,
     password

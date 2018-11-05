@@ -4,6 +4,7 @@ import  { Meteor }  from 'meteor/meteor';
 import  PrimarySearchBar from '../../Shared/Home/PrimarySearchBar.js';
 import RentalObject from '../RentalObject.js';
 import {Objects} from '../../../api/objects.js'
+import {Users} from '../../../api/users.js'
 import {Container,  Col, Row } from 'reactstrap';
 import './Results.css'; 
 
@@ -80,7 +81,8 @@ class Results extends Component {
 export default withTracker((props) => {
     Meteor.subscribe('object')
     const finding = Objects.find({}).fetch()  
-    
+    const user   =  Users.find({}).fetch()
+    console.log('wiwthtrackeruser: ',user)
     const filter = localStorage.getItem('filter')
     console.log('filter: ',filter)
     let new_finding=''
