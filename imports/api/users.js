@@ -83,6 +83,14 @@ Meteor.methods({
     Users.update( {'email': email }, { $inc: { balance: 100} });
     return true;
   },
+  'users.rentItem'(
+    obj,
+  ) {
+    const correo  = obj.correo
+    const price = -obj.price
+    Users.update( {'email': correo }, { $inc: { balance: price} });
+    return true;
+  },
   'users.findUser'({  
     email
   }) {

@@ -1,0 +1,10 @@
+.btnAvai{
+    color:green;
+    font-weight: bold;
+    text-align: center;
+}
+.btnNoAvai{
+    color:red;
+    font-weight: bold;
+    text-align: center;
+}

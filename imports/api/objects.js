@@ -54,6 +54,8 @@ Meteor.methods({
       description: description,
       alttext: alttext,
       rented: false,
+      from_date: null,
+      to_date:null
   
     });  
 
@@ -77,6 +79,10 @@ Meteor.methods({
  
 
     Objects.remove(objectId);
+  },
+  'objects.updateRent'(ob) {
+    console.log('update objects rent: ',ob)
+    Objects.update(ob.id, { $set: { from_date: ob.from ,to_date:ob.to, rented: true} });
   },
 
   'tasks.setChecked'(objectId, setChecked) {

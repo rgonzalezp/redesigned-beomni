@@ -42,6 +42,7 @@ class Results extends Component {
         this.changeProductoRent = this.changeProductoRent.bind(this);
         this.calculateDeltaDays = this.calculateDeltaDays.bind(this);
         this.calculateRentPrice = this.calculateRentPrice.bind(this);
+        this.rentItem = this.rentItem.bind(this);
     }
 
     rentObject = (product) =>  {
@@ -81,7 +82,6 @@ class Results extends Component {
   
   calculateRentPrice(){
     const product = this.state.product_4_rent
-    console.log('productis : ',product)
     if(product!==null){
         let diff = this.calculateDeltaDays()
         let price      = diff * product.price
@@ -92,13 +92,31 @@ class Results extends Component {
     }
   }
 
+  rentItem(price){
+      let product = this.state.product_4_rent
+      Meteor.call(
+        'objects.updateRent',
+        {
+          id: product._id,
+          from: this.state.dateFrom,
+          to: this.state.dateTo
+        },
+        (err, res) => {
+          if (err) 
+            alert(err.error);
+        Meteor.call('users.rentItem',{correo:localStorage.getItem('correo'),price:price})
+        }
+      );
+
+  }
+
   handleRent = () => {
     const user = this.props.user[0]
     let price      = this.calculateRentPrice()
     if (user.balance>=price){
 
-        console.log('hellos')
-       // this.setState({ open: false });
+        this.rentItem(price)
+        this.setState({ open: false });
     }
     else{   
         alert('You do not have enough funds to rent this item!')
@@ -120,21 +138,21 @@ class Results extends Component {
         description={product.description}
         imageurl= {product.imageurl}
         alttext= {product.alttext}
+        rented = {product.rented}
+        from={product.from_date}
+        to={product.to_date}
       >
       </RentalObject>
             </Col>)
         }))
     }
         triggerChangeFrom(e) {
-            console.log('from: ',e.target.value)
         this.setState({dateFrom:e.target.value});
       }
       triggerChangeTo(e) {
-          console.log('to: ',e.target.value)
           this.setState({dateTo:e.target.value})
       }
     renderCalendarPickerFrom(){
-        console.log('entra a from picker')
         const date = moment().format("YYYY-MM-DDTHH:mm")
 
         return (    <form noValidate>
@@ -153,7 +171,6 @@ class Results extends Component {
     renderCalendarPickerTo(){
         const date = moment().format("YYYY-MM-DDTHH:mm")
 
-        console.log('entra a to picker ', date)
         return (    <form noValidate>
             <TextField
               id="datetime-local"
@@ -236,7 +253,6 @@ class Results extends Component {
         </div>)
     }
     renderRentDummy(){
-        console.log('funcion: ',this)
         return this.props.data.map((prod)=>{
             return (<div key={prod._id}> hola</div>)
         })
@@ -283,7 +299,6 @@ export default withTracker((props) => {
     const finding = Objects.find({}).fetch()  
     const user   =  Users.find({'email':correo}).fetch()
     const filter = localStorage.getItem('filter')
-    console.log('filter: ',filter)
     let new_finding=''
     if(filter===''){
         localStorage.setItem('filter', '');

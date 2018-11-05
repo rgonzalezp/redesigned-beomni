@@ -9,7 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import './RentalObject.css';
+import { Col, } from 'reactstrap';
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -39,7 +40,14 @@ const styles = {
 };
 
 
-
+function renderAvailability(flag,props){
+  console.log('available: ',props)
+if(flag===true){
+return (<Col sm='12'><h5 class='btnAvai'>Available</h5></Col>)
+}else{
+return (<Col sm='12'><h5 class='btnNoAvai'>Available until: {props.to}</h5></Col>)
+}
+}
 function RentalObject(props) {
   const { classes } = props;
 
@@ -49,6 +57,7 @@ function RentalObject(props) {
     console.log(productoprops)
     props.rentFunction(productoprops)
    }
+
 
   return (
     <Card className={classes.card}>
@@ -68,6 +77,9 @@ function RentalObject(props) {
           <Typography component="p">
             {props.description}
           </Typography>
+        </CardContent>
+        <CardContent>
+          {props.rented? renderAvailability(false,props):renderAvailability(true,props)}
         </CardContent>
       </CardActionArea>
       <CardActions>
