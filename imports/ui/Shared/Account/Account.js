@@ -18,6 +18,7 @@ import {Container,
 import {Users} from '../../../api/users.js'
 
 
+
 class Account extends Component {
     constructor(props) {
 
@@ -88,17 +89,17 @@ class Account extends Component {
     renderEdit(){
         return ( <InputGroup>
             <Row>
-              <InputGroupAddon addonType="prepend"><Button color="info" >Username:</Button></InputGroupAddon>
+              <h4 class='lblTxt' >Username:</h4>
               <Input value={this.state.username?this.state.username:'username'}readOnly/>
             </Row>
             <Row>
-              <InputGroupAddon addonType="prepend">  <Button color="info" > First Name:</Button> 
-              </InputGroupAddon>
+              <h4 class='lblTxt' >   First Name:
+              </h4>
               <Input onChange={this.handleInputName} placeholder="First Name!" valid />
               </Row>
               <Row>
-              <InputGroupAddon addonType="prepend"> <Button color="info" > Last Name:</Button> 
-              </InputGroupAddon>
+              <h4 class='lblTxt' >  Last Name:
+              </h4>
               <Input onChange={this.handleInputLast} placeholder="Last Name!" valid />
               </Row>
             </InputGroup>)
@@ -107,17 +108,17 @@ class Account extends Component {
         console.log('NOEDIT: ', this)
         return ( <InputGroup>
             <Row>
-              <InputGroupAddon addonType="prepend"  block> <Button color="info" > Username:</Button> </InputGroupAddon>
+              <h4 class='lblTxt'  block> Username:</h4>
               <Input value={this.state.username?this.state.username:'username'} readOnly />
             </Row>
             <Row>
-              <InputGroupAddon addonType="prepend"> <Button color="info" >  First Name :</Button>
-              </InputGroupAddon>
+              <h4 class='lblTxt'>  First Name:
+              </h4>
               <Input value={this.state.name?this.state.name:'First Name'} readOnly />
               </Row>
               <Row>
-              <InputGroupAddon addonType="prepend"> <Button color="info" >  Last Name: :</Button>
-              </InputGroupAddon>
+              <h4 class='lblTxt'>  Last Name:
+              </h4>
               <Input value={this.state.last?this.state.last:'Last Name'}readOnly />
               </Row>
             </InputGroup>)
@@ -159,22 +160,23 @@ class Account extends Component {
     }
     uploadAvatarImage(){
             return ( 
-                <Row>
-
-            <Form>
-            <FormGroup row>
-            <Label className="text-primary" for="exampleText" sm={2}>IMG URL:</Label>
-            <Col sm={10}>
+            <Container>
+            <Row>
+            <Col md={12}>
+            <p class="urlimg" block>Please paste an image URL to set as avatar:</p> 
+            </Col>
+            </Row>
+            <Row>
+            <Col sm="12" md={{ size: 6, offset: 3 }}>
             <Input type="textarea" name="text" id="exampleText" onChange={this.handleInputUrl}/>
             </Col>
-            </FormGroup>
-            </Form>
             </Row>
+            </Container>
             )
         
     }
     renderAvatar(){
-        return  ( <Container>{this.renderAvatarImage()}{ this.state.edit? this.uploadAvatarImage():''} </Container>)
+        return  ( <Container>{this.renderAvatarImage()}</Container>)
     }
     renderProfile(){
         return(<Container>
@@ -217,6 +219,7 @@ class Account extends Component {
                 <PrimarySearchBar/>
                 {console.log(localStorage.getItem('correo'))}
                 {this.renderProfile()}
+                { this.state.edit? this.uploadAvatarImage():''} 
                 {this.renderEditButton()}
             </div>
         );

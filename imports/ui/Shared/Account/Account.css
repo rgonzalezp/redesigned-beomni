@@ -7,3 +7,13 @@
 .label_upload{
 font:10px;
 }
+.lblTxt{
+    text-align: center ;
+    font-style: italic
+}
+.urlimg{
+    text-align: center;
+    font-style: oblique;
+    color: #4851A9;
+    font-weight: bold;
+}
