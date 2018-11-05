@@ -19,3 +19,4 @@ react-meteor-data       # React higher-order component for reactively tracking M
 templating
 accounts-password
 accounts-ui
+momentjs:moment

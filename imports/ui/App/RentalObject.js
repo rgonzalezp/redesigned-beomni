@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -38,8 +38,18 @@ const styles = {
   },
 };
 
+
+
 function RentalObject(props) {
   const { classes } = props;
+
+  console.log('rentalobjec props: ', props)
+
+  rentBtn = (productoprops) => {
+    console.log(productoprops)
+    props.rentFunction(productoprops)
+   }
+
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -64,7 +74,7 @@ function RentalObject(props) {
         <Button size="small" color="primary">
           Check out
         </Button>
-        <Button size="small" color="primary">
+        <Button onClick={()=>this.rentBtn(props)}size="small" color="primary">
           Rent for {props.price}$ a day
         </Button>
       </CardActions>

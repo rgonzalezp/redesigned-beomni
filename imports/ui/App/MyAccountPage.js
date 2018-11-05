@@ -24,7 +24,7 @@ class MyAccountPage extends Component {
     this.state = {
       title: '',
       email: localStorage.getItem('correo'),
-      price:'',
+      price:0,
       description: '',
       imageurl: '',
       alttext: '',
@@ -122,7 +122,7 @@ class MyAccountPage extends Component {
                   id="price"
                   aria-label="Input your product price per day"
                   name="price"
-                  type="text"
+                  type="number"
                   value={this.state.price}
                   onChange={this.handleChangePrice.bind(this)}
                   ref='inputb'

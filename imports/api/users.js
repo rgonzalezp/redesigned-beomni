@@ -10,7 +10,12 @@ const cryptr = new Cryptr('secretKey');
 export const Users = new Mongo.Collection('storageUsers');
 
 if (Meteor.isServer) {
-	//publish
+  //publish
+  Meteor.publish('users', function objectPublication(owr) {
+    console.log('Entro a publish task users',owr);
+    return Users.find({
+    });
+  });
 	}
 Meteor.methods({
   'users.addUser'({
