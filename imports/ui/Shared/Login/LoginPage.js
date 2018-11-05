@@ -28,7 +28,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
      if (localStorage.getItem('PTUusuario')) {
-      this.props.history.push('/');
+      this.props.history.push('/results');
   }
   
     this.state = { authenticated: false };

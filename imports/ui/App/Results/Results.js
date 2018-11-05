@@ -5,6 +5,7 @@ import  PrimarySearchBar from '../../Shared/Home/PrimarySearchBar.js';
 import RentalObject from '../RentalObject.js';
 import {Objects} from '../../../api/objects.js'
 import {Container,  Col, Row } from 'reactstrap';
+import './Results.css'; 
 
 class Results extends Component {
   
@@ -42,16 +43,33 @@ class Results extends Component {
             return (<div key={prod._id}> hola</div>)
         })
     }
-    render() {
-        return (
-            <Container>
-                 <PrimarySearchBar/>
-                 <Container>
+
+    renderBody(){
+      return (<Container>
+                <Row>
+              <Col md="12">
+              <h3 class="headerRent">Rent Pool</h3>
+
+              </Col>  
+                      </Row>
+          <Row>
+              <Col md="12">
+              <p class="headerRent">Current elements for rent... while they last</p>
+
+              </Col>  
+                      </Row>
                      <Row>
                  {this.renderRentProducts()}
                  </Row>
                  </Container>
-
+)
+    }
+    render() {
+        return (
+            <Container>
+                 <PrimarySearchBar/>
+                 {this.renderBody()}
+                 
             </Container>
         );
     }

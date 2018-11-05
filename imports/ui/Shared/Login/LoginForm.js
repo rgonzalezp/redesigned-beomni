@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
     };
 
     if (localStorage.getItem('sessionToken')) {
-      this.props.history.push('/');
+      this.props.history.push('/results');
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
