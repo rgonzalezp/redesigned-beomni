@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import HomePage from './Shared/Home/HomePage.js';
 import RegisterPage from './Shared/Register/RegisterPage.js';
 import LoginPage from './Shared/Login/LoginPage.js';
-import MyAccountPage from './App/MyAccountPage.js';
+import PostItemsPage from './App/PostItemsPage.js';
 import { Route,Switch, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -55,7 +55,7 @@ class App extends Component {
             <Route path="/" exact component={HomePage} />
             <Route path="/register" exact component={RegisterPage} />
             <Route path="/login" exact component={LoginPage} />
-            <Route path="/postitems" exact component={MyAccountPage} />
+            <Route path="/postitems" exact component={PostItemsPage} />
             <Route path="/profile" exact component={Profile}/>
             <Route path="/accountSettings" exact component={Account}/>
             <Route path="/results" exact component={Results}/>

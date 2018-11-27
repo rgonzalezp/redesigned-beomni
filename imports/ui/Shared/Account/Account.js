@@ -3,6 +3,18 @@ import Avatar from '@material-ui/core/Avatar';
 import { withTracker } from 'meteor/react-meteor-data';
 import  { Meteor }  from 'meteor/meteor';
 import PrimarySearchBar from '../Home/PrimarySearchBar.js';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import grey from '@material-ui/core/colors/grey';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import './Account.css'; 
 import {Container, 
     Form,
@@ -18,6 +30,34 @@ import {Container,
 import {Users} from '../../../api/users.js'
 
 
+const styles = theme => ({
+  card: {
+    maxWidth: 1000,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  actions: {
+    display: 'flex',
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+    marginLeft: 'auto',
+    [theme.breakpoints.up('sm')]: {
+      marginRight: -8,
+    },
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: grey[800],
+  },
+});
 
 class Account extends Component {
     constructor(props) {
@@ -151,8 +191,10 @@ class Account extends Component {
         
     }
     renderAvatarImage(){
-        console.log('renderAvatarImage')
-        console.log(this.state.avatar_url)
+        const { classes } = this.props;
+       let currentdate = new Date();
+       let stringDate = currentdate.toString();
+        const shareUrl = 'https://Fixthis@profilepage.js';
         let url_avatar = this.state.avatar_url
         console.log(url_avatar)
         if(url_avatar===''){
@@ -160,11 +202,24 @@ class Account extends Component {
             url_avatar = '/clear/fd.jpg'
         }
         return (
-            <Avatar
-              alt="Looks like you don't have an avatar, please upload!"
-              src={url_avatar}
-              class='avatar'
-            />)
+            <Card className={classes.card}>
+                                <CardHeader
+                         avatar={
+                           <Avatar aria-label="Recipe" className={classes.avatar}>
+                             {this.state.name.charAt(0)}
+                           </Avatar>
+                         }
+                         title={this.state.name}
+                         subheader={stringDate}
+                       />
+                
+                       <CardMedia className={classes.media} image={url_avatar} alt="Card image cap" />       
+                       <CardContent>
+                         <Typography component="p">
+                           Welcome to a demo of your profile page, for now the functionalities here are not implemented. Still, you can see how the information will be displayed and make suggestions on what you would like to see....
+                         </Typography>
+                       </CardContent>
+                       </Card>)
         
     }
     handleInputUrl(ev){
@@ -208,7 +263,6 @@ class Account extends Component {
         </Col>
         <Col lg="6">
         <h3>Account Information</h3>
-        {console.log('accountinfo: ',this)}
         {this.renderInfo()}
         </Col>
         </Row></Container>)
@@ -250,10 +304,10 @@ class Account extends Component {
             </Row></Container> )
     }
     render() {
+      
         return (
             <div>
                 <PrimarySearchBar/>
-                {console.log(localStorage.getItem('correo'))}
                 {this.renderProfile()}
                 { this.state.edit? this.uploadAvatarImage():''} 
                 {this.renderEditButton()}
@@ -291,6 +345,10 @@ class Account extends Component {
     
 }
 
+Account.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
 async function getUser(correo){
      return new Promise(function(resolve){ 
          console.log('dentro de la promesa)')
@@ -306,11 +364,11 @@ async function getUser(correo){
     )});
 }
 
-export default withTracker((props) => {
+export default withStyles(styles)(withTracker((props) => {
     
      let user =   getUser(localStorage.getItem('correo'))
 
      console.log('user_2: ', user)
              return {user:user}
-  })(Account);
+  })(Account));
 

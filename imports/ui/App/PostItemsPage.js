@@ -12,10 +12,10 @@ import {Container,
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import PrimarySearchBar from '../Shared/Home/PrimarySearchBar.js';
-import './MyAccountPage.css';
+import './Postitem.css';
 import  { Meteor }  from 'meteor/meteor';
 
-class MyAccountPage extends Component {
+class PostItemsPage extends Component {
   constructor(props){
     super(props);
     if (!localStorage.getItem('sessionToken')) {
@@ -211,4 +211,4 @@ class MyAccountPage extends Component {
   }
 }
 
-export default withRouter(MyAccountPage);
+export default withRouter(PostItemsPage);
