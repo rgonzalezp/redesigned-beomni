@@ -86,7 +86,7 @@ class MyAccountPage extends Component {
         if (err) 
           alert(err.error);
         this.clearInput();
-        este.props.history.push('/myaccount');
+        este.props.history.push('/results');
         
       }
     );

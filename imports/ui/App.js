@@ -55,7 +55,7 @@ class App extends Component {
             <Route path="/" exact component={HomePage} />
             <Route path="/register" exact component={RegisterPage} />
             <Route path="/login" exact component={LoginPage} />
-            <Route path="/myaccount" exact component={MyAccountPage} />
+            <Route path="/postitems" exact component={MyAccountPage} />
             <Route path="/profile" exact component={Profile}/>
             <Route path="/accountSettings" exact component={Account}/>
             <Route path="/results" exact component={Results}/>

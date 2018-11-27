@@ -240,12 +240,6 @@ class PrimarySearchBar extends React.Component {
           <Link to="/accountSettings" >
           <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
           </Link>
-          <Link to="/myaccount" >
-          <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
-          </Link>
-          <Link to="/" >
-          <MenuItem onClick={this.logOut.bind(this)} >Logout</MenuItem>
-          </Link>
         </div>:
         <div>
           <Link to="/register" >
@@ -275,7 +269,7 @@ class PrimarySearchBar extends React.Component {
                 <TextField
                   
                   id="standard-with-placeholder"
-                  label="Search for your items"
+                  label="Search for an item to rent!"
                   InputProps={{
                   onChange:this.handleThisSearch,
                   onKeyPress:this.handleKeySearch,
@@ -293,9 +287,15 @@ class PrimarySearchBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-            {this.state.token?<Button onClick={this.logOut.bind(this)}name="register button" variant="contained" color="primary" href="/">
+            {this.state.token?<div>
+              <Link to="/postitems" >
+              <Button name="post an item button" variant="contained" color="primary" href="/">
+                        Post an item!
+                    </Button>
+                    </Link>
+              <Button onClick={this.logOut.bind(this)}name="log out button" variant="contained" color="primary" href="/">
                         Logout!
-                    </Button>:<div><Button name="register button" variant="contained" color="primary" href="/register">
+                    </Button></div>:<div><Button name="register button" variant="contained" color="primary" href="/register">
                         Register!
                     </Button>
               <Button name="login button" variant="contained" color="primary" href="/login">
