@@ -1,5 +1,6 @@
 .headerRent{
-	text-align: center
+	text-align: center;
+	color: black;
 }
 .lblDate{
 	padding-top: 5%;	
@@ -9,6 +10,10 @@
 }
 .footerDue{
 	text-align: center;
-	color: red;
+	color: black;
 	font-weight: bold;
+}
+
+.calendarbeomni {
+	z-index: 5000!important;
 }

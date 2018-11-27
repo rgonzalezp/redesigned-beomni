@@ -14,7 +14,30 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import moment from 'moment'
+import CalendarBeomni from './CalendarBeomni.js';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import moment from 'moment';
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#4851A9',
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      light: '#F6F2E3',
+      main: '#FFFEFA',
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: '#ffcc00',
+    },
+    // error: will use the default color
+  },
+});
+
 
 class Results extends Component {
   
@@ -25,8 +48,8 @@ class Results extends Component {
             filter:'',
             open: false,
             product_4_rent: null,
-            dateFrom: moment().format("YYYY-MM-DDTHH:mm"),
-            dateTo: moment().format("YYYY-MM-DDTHH:mm") 
+            dateFrom: null ,
+            dateTo:null,
 
         };
         this.renderRentProducts = this.renderRentProducts.bind(this);
@@ -34,10 +57,8 @@ class Results extends Component {
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.renderCalendarPickerDialog = this.renderCalendarPickerDialog.bind(this);
-        this.renderCalendarPickerTo = this.renderCalendarPickerTo.bind(this);
-        this.renderCalendarPickerFrom = this.renderCalendarPickerFrom.bind(this);
-        this.triggerChangeTo = this.triggerChangeTo.bind(this);
-        this.triggerChangeFrom = this.triggerChangeFrom.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+
         this.handleRent = this.handleRent.bind(this);
         this.changeProductoRent = this.changeProductoRent.bind(this);
         this.calculateDeltaDays = this.calculateDeltaDays.bind(this);
@@ -98,8 +119,8 @@ class Results extends Component {
         'objects.updateRent',
         {
           id: product._id,
-          from: this.state.dateFrom,
-          to: this.state.dateTo
+          from: this.state.dateFrom.toString(),
+          to: this.state.dateTo.toString()
         },
         (err, res) => {
           if (err) 
@@ -146,44 +167,12 @@ class Results extends Component {
             </Col>)
         }))
     }
-        triggerChangeFrom(e) {
-        this.setState({dateFrom:e.target.value});
-      }
-      triggerChangeTo(e) {
-          this.setState({dateTo:e.target.value})
-      }
-    renderCalendarPickerFrom(){
-        const date = moment().format("YYYY-MM-DDTHH:mm")
+     
 
-        return (    <form noValidate>
-            <TextField
-              id="datetime-local"
-              label="Next appointment"
-              type="datetime-local"
-              defaultValue={date}
-              InputLabelProps={{
-                shrink: true
-              }}
-              onChange={this.triggerChangeFrom}
-            />
-          </form>)
-    }
-    renderCalendarPickerTo(){
-        const date = moment().format("YYYY-MM-DDTHH:mm")
-
-        return (    <form noValidate>
-            <TextField
-              id="datetime-local"
-              label="Next appointment"
-              type="datetime-local"
-              defaultValue={date}
-              InputLabelProps={{
-                shrink: true
-              }}
-              onChange={this.triggerChangeTo}
-            />
-          </form>)
-    }
+  handleDateChange(start,end) {
+    this.setState({dateFrom:start});
+    this.setState({dateTo:end})
+  }
     renderCalendarPickerDialog(){
         return (    <div>    
             <Dialog
@@ -191,38 +180,9 @@ class Results extends Component {
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-            <DialogTitle class='headerRent' id="form-dialog-title">Calendar</DialogTitle>
+            <DialogTitle class='headerRent' id="form-dialog-title"></DialogTitle>
             <DialogContent>
-              <DialogContentText>
-              What dates do you want to rent the item?
-              </DialogContentText>
-              <Row>
-                  <Col sm='6'>
-                  <Row>
-                      <Col sm='12'>
-
-                      <h5 class='lblDate'>
-                        From:
-                      </h5>
-                      </Col>
-                  </Row>
-                  <Row>
-                  {this.renderCalendarPickerFrom()}
-                  </Row>
-                  </Col>
-                  <Col sm='6'>
-                  <Row>
-                      <Col sm='12'>
-                  <h5 class='lblDate'>
-                        To:
-                      </h5>
-                      </Col>
-                  </Row>
-                  <Row>
-                  {this.renderCalendarPickerTo()}
-                  </Row>
-                  </Col>
-              </Row>
+              <CalendarBeomni dateChange={this.handleDateChange} class='calendarbeomni' ref={(calendar) => {this.calendar = calendar;}}/>
             </DialogContent>
             <DialogContent>
                 <DialogContentText>
@@ -234,7 +194,7 @@ class Results extends Component {
                       </Col> 
                       <Col sm='6'>
                   <h5 class='footerDue'>
-                        {this.calculateRentPrice()}
+                        {this.calculateRentPrice()+"$"}
                       </h5>
                       </Col>
                         </Row>
@@ -242,12 +202,14 @@ class Results extends Component {
 
             </DialogContent>
             <DialogActions>
+             <MuiThemeProvider theme={theme}>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
               <Button onClick={this.handleRent} color="primary">
                 Rent!
               </Button>
+            </MuiThemeProvider>
             </DialogActions>
           </Dialog>
         </div>)
@@ -281,11 +243,11 @@ class Results extends Component {
     }
     render() {
         return (
-            <Container>
-                 <PrimarySearchBar/>
-                 {this.renderBody()}
+            <div>
+                <PrimarySearchBar/>
+                {this.renderBody()}
                  
-            </Container>
+            </div>
         );
     }
 }
