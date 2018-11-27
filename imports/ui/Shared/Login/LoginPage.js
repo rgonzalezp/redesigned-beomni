@@ -27,13 +27,9 @@ const theme = createMuiTheme({
 export default class Login extends Component {
   constructor(props) {
     super(props);
-     if (localStorage.getItem('PTUusuario')) {
-      this.props.history.push('/results');
-  }
-  
     this.state = { authenticated: false };
     this.checkAuthentication = this.checkAuthentication.bind(this);
-    this.checkAuthentication();
+    
   }
 
   async checkAuthentication() {

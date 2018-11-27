@@ -37,13 +37,13 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sessionToken: null,
+      sessionToken: localStorage.getItem('sessionToken'),
       error: null,
       username: '',
       password: ''
     };
 
-    if (localStorage.getItem('sessionToken')) {
+    if (this.state.sessionToken) {
       this.props.history.push('/results');
     }
 

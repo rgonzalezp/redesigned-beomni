@@ -43,12 +43,12 @@ const themeColor = createMuiTheme({
         lastName: '',
         email: '',
         password: '',
-        sessionToken: null
+        sessionToken: localStorage.getItem('sessionToken')
       };
 
-      if (localStorage.getItem('sessionToken')) {
-      this.props.history.push('/');
-}
+         if (this.state.sessionToken) {
+      this.props.history.push('/results');
+    }
 
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleFirstNameChange = this.handleFirstNameChange.bind(this);

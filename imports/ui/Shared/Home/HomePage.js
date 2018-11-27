@@ -122,6 +122,16 @@ const styles = thistheme => ({
 
 class HomePage extends Component {
 
+  constructor(props) {
+    super(props);
+      this.state = {
+        sessionToken: localStorage.getItem('sessionToken')
+      };
+
+         if (this.state.sessionToken) {
+      this.props.history.push('/results');
+    }
+}
 
   render() {
     const { classes } = this.props;
