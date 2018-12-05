@@ -152,18 +152,7 @@ class PostItemsPage extends Component {
                   ref='inputd'
                 />
               </FormGroup>
-              <FormGroup>
-                <Label id="alttextLabel" for="examplePassword">Alternate text for image</Label>
-                <Input
-                  id="alttext"
-                  aria-label="Input your image description for our fellow blind folks"
-                  name="alttext"
-                  type="text"
-                  value={this.state.alttext}
-                  onChange={this.handleChangeAlttext.bind(this)}
-                  ref='inpute'
-                />
-              </FormGroup>
+              
               <FormGroup>
                 <Label id="addressLabel" for="examplePassword">Address to make the pick up</Label>
                 <Input
@@ -178,33 +167,31 @@ class PostItemsPage extends Component {
               </FormGroup>
               <Button onClick={this.handleSubmit.bind(this)} className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
             </Col>
-            <Col xs="12" sm="5" >
-              <Container className="App contained">
-              <Container className='conteRent'>
+            <Col xs="12" sm="5" style={{'justify-content': 'center'}} >
+              <Container className="App contained" style={{'justify-content': 'center'}}>
+              <Container className='conteRent' style={{'justify-content': 'center'}}>
+              
                 <RentalObject 
                   price={this.state.price} 
                   title={this.state.title} 
                   email={this.state.email} 
                   description={this.state.description} 
                   imageurl={this.state.imageurl}/>
+
                 </Container>
+
+               
               </Container>
             </Col>
           </Row>
-          <Row className='rowDown'>
-            <Col lg='6' id='holderRental'>
-            <Container id='GoRentals'>
-            <Button  href="/results" className="rentbtns"  variant="contained" color="primary" size="large">Let's rent!!!</Button>
-            </Container>
-                </Col>
-                <Col lg='6'>
-                <Container className='conteService'>
+<Container>
+          <Label id="serviceMap" for="examplePassword">Map of available service:</Label>
                 <ServiceMap/>
-                </Container>
-            </Col>
-          
-          </Row>
+         </Container>
+
+         
         </Container>
+         
        
       </div>
     );

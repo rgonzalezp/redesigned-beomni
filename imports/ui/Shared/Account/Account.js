@@ -94,8 +94,7 @@ class Account extends Component {
 
       handleTriggerEdit = () => {
         
-            console.log('typeofurl: ',this.state.avatar_url)
-            console.log('nombre:', this.state)
+   
               Meteor.call('users.updateUser',{firstName:this.state.name,lastName:this.state.last,email:this.state.username,url:this.state.avatar_url},function(err,res){
                         if(err){
                             console.log(error.reason);
@@ -148,7 +147,7 @@ class Account extends Component {
     
 
     renderEdit(){
-        return ( <InputGroup>
+        return ( <InputGroup style={{'justify-content': 'center'}}>
             <Row>
               <h4 class='lblTxt' >Username:</h4>
               <Input value={this.state.username?this.state.username:'username'}readOnly/>
@@ -163,11 +162,18 @@ class Account extends Component {
               </h4>
               <Input onChange={this.handleInputLast} placeholder="Last Name!" valid />
               </Row>
+              <Row>
+              <h4 class='lblTxt'>  Image url:
+              </h4>
+                 { this.state.edit? this.uploadAvatarImage():''}   
+              </Row>
+
+              {this.renderEditButton()}
             </InputGroup>)
     }
     renderNoEdit(){
         console.log('NOEDIT: ', this)
-        return ( <InputGroup>
+        return ( <InputGroup style={{'justify-content': 'center'}}>
             <Row>
               <h4 class='lblTxt'  block> Username:</h4>
               <Input value={this.state.username?this.state.username:'username'} readOnly />
@@ -182,6 +188,8 @@ class Account extends Component {
               </h4>
               <Input value={this.state.last?this.state.last:'Last Name'}readOnly />
               </Row>
+               
+              {this.renderEditButton()}
             </InputGroup>)
     }
     renderInfo(){
@@ -203,7 +211,7 @@ class Account extends Component {
         }
         return (
             <Card className={classes.card}>
-                                <CardHeader
+                      <CardHeader
                          avatar={
                            <Avatar aria-label="Recipe" className={classes.avatar}>
                              {this.state.name.charAt(0)}
@@ -238,9 +246,7 @@ class Account extends Component {
             return ( 
             <Container>
             <Row>
-            <Col md={12}>
-            <p class="urlimg" block>Please paste an image URL to set as avatar:</p> 
-            </Col>
+            
             </Row>
             <Row>
             <Col sm="12" md={{ size: 6, offset: 3 }}>
@@ -308,9 +314,7 @@ class Account extends Component {
         return (
             <div>
                 <PrimarySearchBar/>
-                {this.renderProfile()}
-                { this.state.edit? this.uploadAvatarImage():''} 
-                {this.renderEditButton()}
+                {this.renderProfile()}   
                 {this.renderBalance()}
                 {this.renderAddMoreTokensBtn()}
             </div>
@@ -323,14 +327,12 @@ class Account extends Component {
         console.log('compoenntDidmount')
         if(this.state.name===''){
             this.props.user.then(function(result){
-                console.log('componendidmoiunt: ', this)
-                console.log(result)
+              
                 este.updateName(result.firstName)
                 este.updateLastName(result.lastName)
                 este.updateUsername(result.email)
                 este.updateBalance(result.balance)
                 if(typeof(result.avatar_url)!=='undefined'){
-                    console.log('Try: ', result.avatar_url)
                     este.updateAvatar(result.avatar_url)
                 }
                 else{
@@ -351,7 +353,7 @@ Account.propTypes = {
 
 async function getUser(correo){
      return new Promise(function(resolve){ 
-         console.log('dentro de la promesa)')
+     
         console.log(correo)
          Meteor.call('users.findUser',{'email':correo},   (err, res) => {
         if (err) {

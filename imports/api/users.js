@@ -56,10 +56,6 @@ Meteor.methods({
     url
   }) {
 
-    console.log(firstName);
-    console.log( lastName);
-    console.log(email);
-    console.log(url)
 
 
     Users.update( {'email': email }, { $set: { firstName: firstName, lastName: lastName , avatar_url:url} });
@@ -123,7 +119,7 @@ Meteor.methods({
       }
     }
 
-    delete user.clave;
+    delete user.password;
 
     let token = jwt.sign(user, 'secretKeyAgain');
 

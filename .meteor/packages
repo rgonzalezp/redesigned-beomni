@@ -20,3 +20,4 @@ templating
 accounts-password
 accounts-ui
 momentjs:moment
+cfs:standard-packages
