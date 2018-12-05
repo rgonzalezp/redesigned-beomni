@@ -39,9 +39,8 @@ Meteor.methods({
     imageurl,
     title,
     description,
-    alttext
-  }) {
 
+  }){
     // Make sure the user is logged in before inserting an object
    
 
@@ -52,7 +51,6 @@ Meteor.methods({
       imageurl: imageurl,
       title: title,
       description: description,
-      alttext: alttext,
       rented: false,
       from_date: null,
       to_date:null

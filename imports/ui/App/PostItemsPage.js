@@ -78,8 +78,7 @@ class PostItemsPage extends Component {
         email: this.state.email,
         imageurl: this.state.imageurl,
         title: this.state.title,
-        description: this.state.description,
-        alttext: this.state.alttext,
+        description: this.state.description
  
       },
       (err, res) => {
@@ -170,7 +169,7 @@ class PostItemsPage extends Component {
             <Col xs="12" sm="5" style={{'justify-content': 'center'}} >
               <Container className="App contained" style={{'justify-content': 'center'}}>
               <Container className='conteRent' style={{'justify-content': 'center'}}>
-              
+
                 <RentalObject 
                   price={this.state.price} 
                   title={this.state.title} 
@@ -184,7 +183,7 @@ class PostItemsPage extends Component {
               </Container>
             </Col>
           </Row>
-<Container>
+			<Container>
           <Label id="serviceMap" for="examplePassword">Map of available service:</Label>
                 <ServiceMap/>
          </Container>
