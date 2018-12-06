@@ -13,8 +13,10 @@ if (Meteor.isServer) {
   //publish
   Meteor.publish('users', function objectPublication(owr) {
     console.log('Entro a publish task users',owr);
-    return Users.find({
-    });
+    const dl = limit || 20;
+
+    return Users.find({}, {limit: dl});
+
   });
 	}
 Meteor.methods({

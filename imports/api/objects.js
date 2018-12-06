@@ -23,9 +23,11 @@ if (Meteor.isServer) {
 
   Meteor.publish('object', function objectPublication(owr) {
     console.log('Entro a publish task',owr);
+    const dl = limit || 20;
+    return Posts.find({}, {limit: dl});
     return Objects.find({
       owner:owr
-    });
+    },{limit: dl});
   });
 
 }
