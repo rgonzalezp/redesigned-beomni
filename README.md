@@ -7,7 +7,9 @@
 - [Authors](#authors)
 - [Quickstart](#quickstart)
 - [Preview](#preview)
+- [Testing](#testing)
 - [Copyright and license](#copyright-and-license)
+
 
 ## Demo
 http://40.76.46.156:3000
@@ -35,6 +37,9 @@ http://40.76.46.156:3000
 ## Preview
 ![alt text](trabajo4.png)
 
+## Testing
+https://github.com/rgonzalezp/redesigned-beomni-test
+![](https://raw.githubusercontent.com/rgonzalezp/redesigned-beomni-test/master/tests.gif)
 
 ## Copyright and license
 Code Copyright 2018 Ricardo Enrique Gonzalez Peñuela, Esteban Galvis. Code released under the MIT license.
