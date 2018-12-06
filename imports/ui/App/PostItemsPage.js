@@ -164,7 +164,7 @@ class PostItemsPage extends Component {
                   ref='inputf'
                 />
               </FormGroup>
-              <Button onClick={this.handleSubmit.bind(this)} className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
+              <Button id="submit" onClick={this.handleSubmit.bind(this)} className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
             </Col>
             <Col xs="12" sm="5" style={{'justify-content': 'center'}} >
               <Container className="App contained" style={{'justify-content': 'center'}}>
