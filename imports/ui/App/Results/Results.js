@@ -261,20 +261,38 @@ class Results extends Component {
         );
     }
 }
-const loopData =   async function(data,tfidf){
 
+const build_ngm  = async function(lst,ngrams){
+
+    for (let i=0; i <ngrams.length;i<i++){
+        const l = ngrams[i].join(" ")
+        lst.push(l)
+    }
+}
+const toke   = async function(lst,dta,tokenizer){
+    lst.concat(tokenizer.tokenize(dta))
+}
+const loopData =   async function(data,tfidf,tokenizer){
+    natural.PorterStemmer.attach();
+
+    const  NGrams = natural.NGrams;
     for (let i=0; i < data.length; i++) {
         const title = data[i].title
         const descri = data[i].description
-        const texto = String(title).toLowerCase() + " " + String(descri).toLowerCase()
-        console.log("TXT TO ADD IS: ", texto)
-        tfidf.addDocument(texto);
+        let  texto = String(title).toLowerCase() + " " + String(descri).toLowerCase()
+        texto = texto.tokenizeAndStem()
+        let lst = []
+        const ret_grm = build_ngm(lst, NGrams.trigrams(texto))
+        lst = lst.concat(texto)
+        tfidf.addDocument(lst);
     
     }
     }
     
+
     const sort_tfidf = async function(txt, tfidf,lista_i,lista_medidas){
-        tfidf.tfidfs(String(txt).toLowerCase(), function(i, measure) {
+        const txt_proc = natural.PorterStemmer.tokenizeAndStem(txt).join(" ")
+        tfidf.tfidfs(txt_proc, function(i, measure) {
             if(parseInt(measure)!==0)
             {   
                 let temp = {}
@@ -310,7 +328,8 @@ export default withTracker((props) => {
     const filter = localStorage.getItem('filter')
     const TfIdf = natural.TfIdf;
     const  tfidf = new TfIdf();
-    const ret_loop =  loopData(finding, tfidf)
+    tokenizer = new natural.WordTokenizer();
+    const ret_loop =  loopData(finding, tfidf,tokenizer)
 
     let lista_medidas = []
     let lista_i = []
