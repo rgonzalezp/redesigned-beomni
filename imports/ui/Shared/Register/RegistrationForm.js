@@ -179,7 +179,7 @@ const themeColor = createMuiTheme({
               />
             </FormGroup>
           </Col>
-          <Button onClick={this.handleSubmit.bind(this)} className="registration-buttons" variant="contained" color="primary" size="large">Let's go</Button>
+          <Button id="submit" onClick={this.handleSubmit.bind(this)} className="registration-buttons" variant="contained" color="primary" size="large">Let's go</Button>
         </Form>
       </Container>
       </div>

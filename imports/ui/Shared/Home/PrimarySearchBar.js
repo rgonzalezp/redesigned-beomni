@@ -236,7 +236,7 @@ class PrimarySearchBar extends React.Component {
         onClose={this.handleMobileMenuClose}
       > 
       {this.state.token?
-        <div>
+        <div id="profilebutton">
           <Link to="/accountSettings" >
           <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
           </Link>
@@ -287,24 +287,27 @@ class PrimarySearchBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
+            <div className>
             {this.state.token?<div>
               <Link to="/postitems" >
-              <Button name="post an item button" variant="contained" color="primary" href="/">
+              <Button id="post" name="post an item button" variant="contained" color="primary" href="/">
                         Post an item!
                     </Button>
                     </Link>
-              <Button onClick={this.logOut.bind(this)}name="log out button" variant="contained" color="primary" href="/">
+              <Button id="logout" onClick={this.logOut.bind(this)}name="log out button" variant="contained" color="primary" href="/">
                         Logout!
-                    </Button></div>:<div><Button name="register button" variant="contained" color="primary" href="/register">
+                    </Button></div>:<div><Button id="register" name="register button" variant="contained" color="primary" href="/register">
                         Register!
                     </Button>
-              <Button name="login button" variant="contained" color="primary" href="/login">
+              <Button id="login" name="login button" variant="contained" color="primary" href="/login">
                         Log in!
               </Button></div>}
+              </div>
             
               
               
               <IconButton
+              id="menu"
                 aria-label="profile menu" 
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"

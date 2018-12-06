@@ -149,47 +149,66 @@ class Account extends Component {
     renderEdit(){
         return ( <InputGroup style={{'justify-content': 'center'}}>
             <Row>
-              <h4 class='lblTxt' >Username:</h4>
+              <Typography variant="h4">Username</Typography>
               <Input value={this.state.username?this.state.username:'username'}readOnly/>
             </Row>
             <Row>
-              <h4 class='lblTxt' >   First Name:
-              </h4>
-              <Input onChange={this.handleInputName} placeholder="First Name!" valid />
+              <Typography variant="h4">     First Name:</Typography>
+              <Input id="newname" onChange={this.handleInputName} placeholder="First Name!" valid />
               </Row>
               <Row>
-              <h4 class='lblTxt' >  Last Name:
-              </h4>
+              <Typography variant="h4"> Last Name:</Typography>
               <Input onChange={this.handleInputLast} placeholder="Last Name!" valid />
               </Row>
               <Row>
-              <h4 class='lblTxt'>  Image url:
-              </h4>
+              <Typography variant="h4">  Image url:</Typography>
                  { this.state.edit? this.uploadAvatarImage():''}   
               </Row>
 
               {this.renderEditButton()}
+              {this.renderBalance()}
+                {this.renderAddMoreTokensBtn()}
             </InputGroup>)
     }
     renderNoEdit(){
         console.log('NOEDIT: ', this)
         return ( <InputGroup style={{'justify-content': 'center'}}>
-            <Row>
-              <h4 class='lblTxt'  block> Username:</h4>
-              <Input value={this.state.username?this.state.username:'username'} readOnly />
-            </Row>
-            <Row>
-              <h4 class='lblTxt'>  First Name:
-              </h4>
-              <Input value={this.state.name?this.state.name:'First Name'} readOnly />
-              </Row>
-              <Row>
-              <h4 class='lblTxt'>  Last Name:
-              </h4>
-              <Input value={this.state.last?this.state.last:'Last Name'}readOnly />
-              </Row>
-               
+            
+            <Col sm="12">
+
+              <Typography variant="h4"> Username:</Typography>
+              
+              
+              <Typography variant="h6">
+                {this.state.username?this.state.username:'username'} 
+              </Typography>
+            </Col>
+            
+           
+            <Col sm="12">
+            <Typography variant="h4"> First Name:</Typography>
+              
+              
+              <Typography id="actualname" variant="h6">
+                 {this.state.name?this.state.name:'First Name'}
+              </Typography>
+            
+              </Col>
+           
+           
+              <Col sm="12">
+               <Typography variant="h4"> Last Name:</Typography>
+              
+              
+              <Typography variant="h6">
+                      {this.state.last?this.state.last:'Last Name'}
+              </Typography>
+           
+         </Col>
+             
               {this.renderEditButton()}
+              {this.renderBalance()}
+                {this.renderAddMoreTokensBtn()}
             </InputGroup>)
     }
     renderInfo(){
@@ -244,16 +263,17 @@ class Account extends Component {
     }
     uploadAvatarImage(){
             return ( 
-            <Container>
-            <Row>
+           
+    
             
-            </Row>
-            <Row>
-            <Col sm="12" md={{ size: 6, offset: 3 }}>
-            <Input type="textarea" name="text" id="exampleText" onChange={this.handleInputUrl}/>
-            </Col>
-            </Row>
-            </Container>
+            
+         
+            <Input onChange={this.handleInputUrl} placeholder="Last Name!" valid />
+         
+     
+
+
+  
             )
         
     }
@@ -279,14 +299,14 @@ class Account extends Component {
     renderEditButton_4real(){
         return (            <Row>
             <Col lg='12'>
-        <Button color="primary" size="lg" onClick={this.handleTriggerEdit} block>Edit Profile</Button>
+        <Button id="startchange" color="primary" size="lg" onClick={this.handleTriggerEdit} block>Edit Profile</Button>
         </Col>
         </Row>)
     }
     renderUpdateProfileBtn(){
         return (            <Row>
             <Col lg='12'>
-        <Button color="success" size="lg" onClick={this.handleTriggerEdit} block>Accept Changes! :D </Button>
+        <Button id="submitchange" color="success" size="lg" onClick={this.handleTriggerEdit} block>Accept Changes! :D </Button>
         </Col>
         </Row>)    
     }
@@ -315,8 +335,7 @@ class Account extends Component {
             <div>
                 <PrimarySearchBar/>
                 {this.renderProfile()}   
-                {this.renderBalance()}
-                {this.renderAddMoreTokensBtn()}
+                
             </div>
         );
     }

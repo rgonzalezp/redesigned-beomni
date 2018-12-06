@@ -115,7 +115,7 @@ class LoginForm extends React.Component {
               />
             </FormGroup>
           </Col>
-          <Button onClick={this.handleSubmit.bind(this)} className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
+          <Button id="submit" onClick={this.handleSubmit.bind(this)} className="login-buttons"  variant="contained" color="primary" size="large">Let's go</Button>
         </Form>
       </Container>
     );
