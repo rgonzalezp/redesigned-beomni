@@ -18,7 +18,8 @@ import CalendarBeomni from './CalendarBeomni.js';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import moment from 'moment';
-
+import fs from "fs";
+import natural from 'natural';
 
 const theme = createMuiTheme({
   palette: {
@@ -148,24 +149,33 @@ class Results extends Component {
 
         const datos = this.props.data
         const este  = this
+        if (datos.length>=0){
+            return  (datos.map((product)=>{  
 
-      return  (datos.map((product)=>{  
-            return (<Col lg='4' key={product._id}>
-            <RentalObject 
-            rentFunction={this.rentObject}
-        _id={product._id}   
-        title={product.title}
-        price={product.price}
-        description={product.description}
-        imageurl= {product.imageurl}
-        alttext= {product.alttext}
-        rented = {product.rented}
-        from={product.from_date}
-        to={product.to_date}
-      >
-      </RentalObject>
-            </Col>)
-        }))
+                if(typeof(product)==="undefined"){
+                    return
+                }
+                else{                    return (<Col lg='4' key={product._id}>
+                <RentalObject 
+                rentFunction={this.rentObject}
+            _id={product._id}   
+            title={product.title}
+            price={product.price}
+            description={product.description}
+            imageurl= {product.imageurl}
+            alttext= {product.alttext}
+            rented = {product.rented}
+            from={product.from_date}
+            to={product.to_date}
+          >
+          </RentalObject>
+                </Col>)       }
+            }))
+        }
+        else{
+            return <h3>Loading</h3>
+        }
+      
     }
      
 
@@ -251,7 +261,44 @@ class Results extends Component {
         );
     }
 }
+const loopData =   async function(data,tfidf){
 
+    for (let i=0; i < data.length; i++) {
+        const title = data[i].title
+        const descri = data[i].description
+        const texto = String(title).toLowerCase() + " " + String(descri).toLowerCase()
+        console.log("TXT TO ADD IS: ", texto)
+        tfidf.addDocument(texto);
+    
+    }
+    }
+    
+    const sort_tfidf = async function(txt, tfidf,lista_i,lista_medidas){
+        tfidf.tfidfs(String(txt).toLowerCase(), function(i, measure) {
+            if(parseInt(measure)!==0)
+            {   
+                let temp = {}
+                temp[measure] = i;
+                lista_i.push(temp)
+                lista_medidas.push(measure); 
+            }
+        });
+        
+    }
+    
+    const sort_scores = async function(lista_medidas){
+        lista_medidas.sort(function(a, b){return a-b});
+    
+    }
+    
+    const get_objs = async function(lista_medidas, lista_i, finding, lista_obj_ij){
+    
+        for (let i = 0; i< lista_medidas.length;i++){
+            const idx_measure = lista_i[i][lista_medidas[i]]
+            lista_obj_ij.push(finding[idx_measure])
+        }
+    
+    }
 
 
 export default withTracker((props) => {
@@ -261,13 +308,25 @@ export default withTracker((props) => {
     const finding = Objects.find({}).fetch()  
     const user   =  Users.find({'email':correo}).fetch()
     const filter = localStorage.getItem('filter')
+    const TfIdf = natural.TfIdf;
+    const  tfidf = new TfIdf();
+    const ret_loop =  loopData(finding, tfidf)
+
+    let lista_medidas = []
+    let lista_i = []
+    let lista_obj_ij = []
+
+
     let new_finding=''
     if(filter===''){
         localStorage.setItem('filter', '');
          new_finding = finding
     }
     else{
-         new_finding = finding.filter( obj=>obj.title===filter)
+        const ret_sort = sort_tfidf(filter,tfidf,lista_i,lista_medidas)
+        const ret_arange_sort = sort_scores(lista_medidas)
+        const ret_get = get_objs(lista_medidas, lista_i, finding, lista_obj_ij)
+         new_finding = lista_obj_ij
       
     }
 

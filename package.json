@@ -21,6 +21,7 @@
     "jsonwebtoken": "^8.3.0",
     "meteor-node-stubs": "^0.4.1",
     "moment": "^2.22.2",
+    "natural": "^0.6.2",
     "rc-calendar": "^9.7.11",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
@@ -28,7 +29,8 @@
     "react-hotjar": "^1.0.11",
     "react-router-dom": "^4.3.1",
     "react-strap": "0.0.1",
-    "reactstrap": "^6.5.0"
+    "reactstrap": "^6.5.0",
+    "wordnet-db": "^3.1.11"
   },
   "meteor": {
     "mainModule": {
