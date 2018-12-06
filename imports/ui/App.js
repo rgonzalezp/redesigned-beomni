@@ -11,10 +11,13 @@ import './App.css';
 import Profile from './Shared/Profile/Profile.js';
 import Account from './Shared/Account/Account.js';
 import Results from './App/Results/Results.js';
-
+import ReactGA from 'react-ga';
  
 
-
+function initializeReactGA() {
+    ReactGA.initialize('UA-130578690-1');
+    ReactGA.pageview('/homepage');
+}
 
 const themeColor = createMuiTheme({
   palette: {
@@ -49,7 +52,7 @@ class App extends Component {
     setTimeout(() => this.setState({ loaded: true }), 1300);
   }
   render() {
-
+  	initializeReactGA();
     if (this.state.loaded === null) return <MuiThemeProvider theme={themeColor}><CircularProgress className="centered" size={80} color="primary"></CircularProgress></MuiThemeProvider>;
     return this.state.loaded ? (
       <div>

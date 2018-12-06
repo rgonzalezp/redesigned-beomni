@@ -24,6 +24,7 @@
     "rc-calendar": "^9.7.11",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "react-ga": "^2.5.6",
     "react-hotjar": "^1.0.11",
     "react-router-dom": "^4.3.1",
     "react-strap": "0.0.1",
