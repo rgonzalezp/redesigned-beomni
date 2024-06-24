@@ -19,6 +19,7 @@ if (Meteor.isServer) {
 
   });
 	}
+//Comentar las funciones del codigo
 Meteor.methods({
   'users.addUser'({
     firstName,
